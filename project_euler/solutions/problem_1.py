@@ -11,6 +11,8 @@ description = "If we list all the natural numbers below 10 that are" \
 
 strategy = "Use a limited version of the Inclusion-Exclusion Principle."
 
+answer_b64 = b'MjMzMTY4\n'
+
 
 def solve(bound: int=1000, divisors: Tuple[int, int]=(3, 5)) -> str:
     counter = 0
