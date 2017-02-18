@@ -1,6 +1,6 @@
 import pytest
 
-from project_euler.library.series import series as series_module
+from project_euler.library import series as series_module
 
 series_dict = {}
 reference_values = {
