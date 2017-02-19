@@ -3,7 +3,7 @@ from math import gcd
 
 def solve(number: int=20) -> str:
     if number <= 0:
-        raise TypeError
+        raise ValueError
 
     lcd = 1
 
