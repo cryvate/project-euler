@@ -21,13 +21,27 @@ def is_prime_trial_division_sqrt(n: int) -> bool:
         if n % factor == 0:
             return False
 
-        if factor * factor >= n:
+        if factor * factor > n:
             return True
 
     return True
 
 
-def is_prime_using_sieve(n: int, sieve: Callable[int, bool]) -> bool:
+def prime_factor_trial_division_sqrt(n: int) -> int:
+    if n <= 1:
+        raise ZeroDivisionError
+
+    for factor in range(2, floor(sqrt(n))):
+        if n % factor == 0:
+            return factor
+
+        if factor * factor > n:
+            return n
+
+    return n
+
+
+def is_prime_using_sieve(n: int, sieve: Callable[[int], bool]) -> bool:
     if n <= 1:
         return False
 

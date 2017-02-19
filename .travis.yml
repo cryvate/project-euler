@@ -4,5 +4,4 @@ python:
 install:
   - pip install .
 script:
-  - pytest .
-  - flake8 .
+  - tox
