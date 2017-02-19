@@ -4,7 +4,8 @@ from project_euler.library import series as series_module
 
 series_dict = {}
 reference_values = {
-    'fibonacci': [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89]
+    'fibonacci': [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89],
+    'primes_nomemory': [2, 3, 5, 7, 11, 13, 17, 19, 23, 29],
 }
 
 for attribute in dir(series_module):
@@ -26,9 +27,10 @@ def test_series(series_name: str):
         try:
             assert calculated == reference
         except AssertionError as e:
-            raise ValueException(f"Reference value and calculated value on "
+            raise ValueException(f"Calculcated value and reference value on "
                                  f"{series_name} series do not agree at "
-                                 f"index {i}.") from e
+                                 f"index {i}: {calculated} and "
+                                 f"{reference} repsectively.") from e
 
 
 class ValueException(Exception):

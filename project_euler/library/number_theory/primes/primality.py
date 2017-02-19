@@ -17,7 +17,7 @@ def is_prime_trial_division_sqrt(n: int) -> bool:
     if n <= 1:
         return False
 
-    for factor in range(2, floor(sqrt(n))):
+    for factor in range(2, floor(sqrt(n)) + 1):
         if n % factor == 0:
             return False
 
@@ -31,7 +31,7 @@ def prime_factor_trial_division_sqrt(n: int) -> int:
     if n <= 1:
         raise ZeroDivisionError
 
-    for factor in range(2, floor(sqrt(n))):
+    for factor in range(2, floor(sqrt(n)) + 1):
         if n % factor == 0:
             return factor
 
