@@ -2,6 +2,4 @@
 
 mkdir out
 
-touch out/index.htm
-
-echo "Hello World!" > out/index.htm
+sphinx-build -b html project_euler/ out/
