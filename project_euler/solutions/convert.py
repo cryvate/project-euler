@@ -16,7 +16,7 @@ import base64
 
 
 def convert(answer: str) -> bytes:
-    return base64.encodebytes(answer.encode())
+    return base64.b64encode(answer.encode())
 
 
 if __name__ == '__main__':
