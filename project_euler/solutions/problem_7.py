@@ -1,4 +1,4 @@
-from ..library.series import primes_nomemory_series as primes
+from ..library.series import primes_series as primes
 
 
 def solve(number: int=10001) -> str:

@@ -9,8 +9,8 @@ def fibonacci_series():
         a, b = b, a + b
 
 
-def primes_nomemory_series():
-    from .number_theory.primes.primality import is_prime_trial_division_sqrt \
+def primes_series():
+    from project_euler.library.number_theory.primes import is_prime_trial_division_sqrt \
                                              as is_prime
 
     for n in count(2):

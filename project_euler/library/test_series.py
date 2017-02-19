@@ -5,7 +5,7 @@ from project_euler.library import series as series_module
 series_dict = {}
 reference_values = {
     'fibonacci': [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89],
-    'primes_nomemory': [2, 3, 5, 7, 11, 13, 17, 19, 23, 29],
+    'primes': [2, 3, 5, 7, 11, 13, 17, 19, 23, 29],
 }
 
 for attribute in dir(series_module):
