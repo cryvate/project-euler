@@ -1,0 +1,12 @@
+venv
+*.pyc
+.eggs
+.cache
+.idea
+*.egg-info
+.tox
+MANIFEST
+coverage_html_report
+*coverage*
+.coverage
+out

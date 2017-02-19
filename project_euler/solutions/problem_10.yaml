@@ -1,0 +1,11 @@
+title: Summation of primes
+description: >
+    The sum of the primes below 10 is 2 + 3 + 5 + 7 = 17.
+
+    Find the sum of all the primes below two million.
+answer_b64: !!binary |
+    MTQyOTEzODI4OTIy
+strategy: >
+    Use the Sieve of Eratosthenes, picking the implementation primesfrom2to:
+
+    http://stackoverflow.com/questions/2068372/fastest-way-to-list-all-primes-below-n
