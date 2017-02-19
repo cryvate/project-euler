@@ -26,7 +26,7 @@ def test_smallest_prime_factor(p: int, remainder: int):
 @pytest.mark.parametrize("n", range(-100, 2))
 def test_largest_prime_factor_negative_error(n):
     with pytest.raises(ValueError):
-        smallest_prime_factor(n)
+        largest_prime_factor(n)
 
 
 @pytest.mark.parametrize("p,remainder", ((2, 1), (5, 2), (11, 35)))
@@ -36,6 +36,8 @@ def test_largest_prime_factor(p: int, remainder: int):
 
 def test_sieve():
     n = max(primes_list)
+
+    assert prime_sieve(0) == []
 
     assert list(prime_sieve(n + 1)) == primes_list
 

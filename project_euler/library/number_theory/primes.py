@@ -10,9 +10,6 @@ def is_prime(n: int) -> bool:
         if n % factor == 0:
             return False
 
-        if factor * factor > n:
-            return True
-
     return True
 
 

@@ -16,11 +16,6 @@ def solve(number: int=1000) -> str:
             while remainder % 2 == 0:
                 remainder //= 2
 
-            if m % 2 == 0:
-                k = m + 2
-            else:
-                k = m + 1
-
             for k in range(m + 1 + (m % 2), min(2 * m, remainder + 1), 2):
                 if remainder % k == 0 and gcd(k, m) == 1:
 

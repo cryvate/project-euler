@@ -13,4 +13,4 @@ def fsqrt(n: int) -> int:
 def csqrt(n: int) -> int:
     approx = fsqrt(n)
 
-    return approx + 0 if approx * approx == n else 1
+    return approx if approx * approx == n else approx + 1
