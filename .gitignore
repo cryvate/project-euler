@@ -7,4 +7,5 @@ venv
 .tox
 MANIFEST
 coverage_html_report
+*coverage*
 .coverage
