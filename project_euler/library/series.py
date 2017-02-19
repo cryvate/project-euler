@@ -1,5 +1,6 @@
 from itertools import count
 
+
 def fibonacci_series():
     a, b = 0, 1
 
