@@ -26,7 +26,7 @@ The package depends on some benign packages listed in the setup.cfg.
 Tox is used to verify both the internals and the time the problems take (at 
 most a minute). It uses:
  
- - py.test
+ - py.test with strict coverage checking
  - flake8
  
 It is run by executing in the root:
@@ -61,7 +61,6 @@ Remainder Theorem.
 ## Testing
 - Do type-checking (MyPy has [effectively, in actuality it is waiting for 
 typed_ast to have 3.6 support] no f-string support).
-- Test coverage reporting (of py.test tests).
 
 ## Documentation
 - Provide automatic documentation on:
