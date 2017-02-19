@@ -1,8 +1,8 @@
-from project_euler.library.series import fibonacci_series
+from project_euler.library.sequences import fibonacci_sequence
 
 
 def solve(bound: int=4_000_000) -> str:
-    series = fibonacci_series()
+    series = fibonacci_sequence()
 
     counter = 0
 

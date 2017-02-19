@@ -1,4 +1,6 @@
-from math import floor, gcd, sqrt
+from math import gcd
+
+from ..library.sqrt import fsqrt
 
 
 def solve(number: int=1000) -> str:
@@ -7,7 +9,7 @@ def solve(number: int=1000) -> str:
 
     number //= 2
 
-    for m in range(2, floor(sqrt(number)) + 1):
+    for m in range(2, fsqrt(number) + 1):
         if number % m == 0:
             remainder = number // m
 

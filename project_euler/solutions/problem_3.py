@@ -1,10 +1,9 @@
-from project_euler.library.number_theory.primes import \
-    prime_factor_trial_division_sqrt
+from project_euler.library.number_theory.primes import smallest_prime_factor
 
 
 def solve(n: int=600851475143) -> str:
     while True:
-        factor = prime_factor_trial_division_sqrt(n)
+        factor = smallest_prime_factor(n)
 
         while n % factor == 0:
             n //= factor

@@ -1,23 +1,12 @@
-from math import sqrt, floor
-from typing import Callable
+from ..sqrt import fsqrt
+from typing import Sequence
 
 
-def is_prime_trial_division(n: int) -> bool:
+def is_prime(n: int) -> bool:
     if n <= 1:
         return False
 
-    for factor in range(2, n):
-        if n % factor == 0:
-            return False
-
-    return True
-
-
-def is_prime_trial_division_sqrt(n: int) -> bool:
-    if n <= 1:
-        return False
-
-    for factor in range(2, floor(sqrt(n)) + 1):
+    for factor in range(2, fsqrt(n) + 1):
         if n % factor == 0:
             return False
 
@@ -27,29 +16,48 @@ def is_prime_trial_division_sqrt(n: int) -> bool:
     return True
 
 
-def prime_factor_trial_division_sqrt(n: int) -> int:
+def smallest_prime_factor(n: int) -> int:
     if n <= 1:
-        raise ZeroDivisionError
+        raise ValueError
 
-    for factor in range(2, floor(sqrt(n)) + 1):
+    for factor in range(2, fsqrt(n) + 1):
         if n % factor == 0:
             return factor
-
-        if factor * factor > n:
-            return n
 
     return n
 
 
-def is_prime_using_sieve(n: int, sieve: Callable[[int], bool]) -> bool:
+def largest_prime_factor(n: int) -> int:
+    if n <= 1:
+        raise ValueError
+
+    bound = fsqrt(n) + 1
+    factor = 2
+
+    while factor <= bound:
+        if n % factor == 0:
+            while n % factor == 0:
+                n //= factor
+
+            if n == 1:
+                return factor
+
+            bound = fsqrt(n) + 1
+
+        factor += 1
+
+    return n
+
+
+def is_prime_using_sieve(n: int, sieve: Sequence[int]) -> bool:
     if n <= 1:
         return False
 
-    if n < len(sieve):
-        return sieve[n]
+    if n in sieve:
+        return True
 
-    permissible_factors = (factor for factor in range(2, sqrt(n))
-                           if sieve[factor])
+    permissible_factors = (factor for factor in range(2, fsqrt(n) + 1)
+                           if factor in sieve)
 
     for factor in permissible_factors:
         if n % factor == 0:
@@ -58,7 +66,7 @@ def is_prime_using_sieve(n: int, sieve: Callable[[int], bool]) -> bool:
     return True
 
 
-def prime_sieve(n: int) -> bool:
+def prime_sieve(n: int) -> Sequence[int]:
     """
     From here:
 
@@ -72,7 +80,7 @@ def prime_sieve(n: int) -> bool:
 
     sieve = numpy.ones(n // 3 + (n % 6 == 2), dtype=numpy.bool)
 
-    for i in range(1, int(sqrt(n)) // 3 + 1):
+    for i in range(1, fsqrt(n) // 3 + 1):
         if sieve[i]:
             k = 3 * i + 1 | 1
             sieve[k * k // 3::2 * k] = False
