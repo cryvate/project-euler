@@ -11,4 +11,3 @@ strategy: >
     lcd(lcd(a, b, ..., y), z): so we simply compute it recursively.
 
     For bigger numbers, using prime factorisation would be better.
-
