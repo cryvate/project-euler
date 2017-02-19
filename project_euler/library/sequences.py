@@ -1,7 +1,7 @@
 from itertools import count
 
 
-def fibonacci_series():
+def fibonacci_sequence():
     a, b = 0, 1
 
     while True:
@@ -9,9 +9,8 @@ def fibonacci_series():
         a, b = b, a + b
 
 
-def primes_series():
-    from project_euler.library.number_theory.primes import \
-        is_prime_trial_division_sqrt as is_prime
+def primes_sequence():
+    from project_euler.library.number_theory.primes import is_prime
 
     for n in count(2):
         if is_prime(n):

@@ -1,34 +1,35 @@
 import pytest
 
-from project_euler.library import series as series_module
+from project_euler.library import sequences as sequence_module
 
-series_dict = {}
+sequences_dict = {}
 reference_values = {
     'fibonacci': [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89],
     'primes': [2, 3, 5, 7, 11, 13, 17, 19, 23, 29],
 }
 
-for attribute in dir(series_module):
-    if attribute.endswith("_series"):
-        series_dict[attribute[:-7]] = getattr(series_module, attribute)
+for attribute in dir(sequence_module):
+    if attribute.endswith("_sequence"):
+        sequences_dict[attribute[:-9]] = getattr(sequence_module, attribute)
 
 
-@pytest.mark.parametrize("series_name", series_dict)
-def test_series(series_name: str):
-    series = series_dict[series_name]()
+@pytest.mark.parametrize("sequence_name", sequences_dict)
+def test_sequence(sequence_name: str):
+    sequence = sequences_dict[sequence_name]()
 
     try:
-        reference_series = reference_values[series_name]
+        reference_sequence = reference_values[sequence_name]
     except KeyError as e:
         raise NoReferenceException(f'No reference values provided for '
-                                   f'{series_name} series.') from e
+                                   f'{sequence_name} sequence.') from e
 
-    for i, (calculated, reference) in enumerate(zip(series, reference_series)):
+    for i, (calculated, reference) in enumerate(zip(sequence,
+                                                    reference_sequence)):
         try:
             assert calculated == reference
         except AssertionError as e:
             raise ValueException(f"Calculcated value and reference value on "
-                                 f"{series_name} series do not agree at "
+                                 f"{sequence_name} sequence do not agree at "
                                  f"index {i}: {calculated} and "
                                  f"{reference} repsectively.") from e
 

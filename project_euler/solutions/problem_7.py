@@ -1,4 +1,4 @@
-from ..library.series import primes_series as primes
+from ..library.sequences import primes_sequence as primes
 
 
 def solve(number: int=10001) -> str:
