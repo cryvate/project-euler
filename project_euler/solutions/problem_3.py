@@ -1,4 +1,4 @@
-from ..library.number_theory.primes.primality import \
+from project_euler.library.number_theory.primes import \
     prime_factor_trial_division_sqrt
 
 
