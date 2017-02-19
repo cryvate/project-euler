@@ -1,62 +1,61 @@
 import os
-from importlib import import_module
+import time
 
 import pytest
+import yaml
 
-from .convert import convert
+from .problems import numbers
 from .solve import solve
 
-problems = []
-problems_with_solution = []
-for filename in os.listdir(os.path.split(__file__)[0]):
-    if filename.endswith(".py") and filename.startswith("problem_"):
-        problem_number = int(filename[8:-3])
-        problems.append(problem_number)
-
-        problem_module = import_module(f'.problem_{problem_number}',
-                                       package='project_euler.solutions')
-
-        try:
-            problem_module.answer_b64
-            problems_with_solution.append(problem_number)
-        except AttributeError:
-            pass
-
-
-@pytest.mark.parametrize("problem_number", problems_with_solution)
-def test_answer(problem_number: int):
-    problem_module = import_module(f'.problem_{problem_number}',
-                                   package='project_euler.solutions')
-
-    assert convert(solve(problem_number)) == problem_module.answer_b64
+problems = numbers
 
 
 @pytest.mark.parametrize("problem_number", problems)
-def test_metadata_problems(problem_number: int):
-    problem_module = import_module(f'.problem_{problem_number}',
-                                   package='project_euler.solutions')
-
+def test_yaml_problems(problem_number: int):
+    filename = os.path.join(os.path.split(__file__)[0], f'problem_'
+                                                        f'{problem_number}'
+                                                        f'.yaml')
     try:
-        problem_module.title
-    except AttributeError as e:
-        raise ProblemMalformedException(f'No title in problem '
-                                        f'{problem_number}.') from e
+        with open(filename) as f:
+            parameters = yaml.load(f)
+    except FileNotFoundError as e:
+        raise ProblemMalformed(f'File problem_{problem_number}.yaml not '
+                               f'found.') from e
 
-    try:
-        problem_module.description
-    except AttributeError as e:
-        raise ProblemMalformedException(f'No description in problem '
-                                        f'{problem_number}.') from e
+    if "title" not in parameters:
+        raise ProblemMalformed(f'No title in problem {problem_number}.')
+    if "description" not in parameters:
+        raise ProblemMalformed(f'No description in problem {problem_number}.')
 
-    try:
-        if problem_number in problems_with_solution:
-            problem_module.strategy
-    except AttributeError as e:
-        raise ProblemMalformedException(f'No strategy in problem '
-                                        f'{problem_number} while providing '
-                                        f'answer.'
-                                        f'') from e
+    if "answer_b64" in parameters:
+        if "strategy" not in parameters:
+            raise ProblemMalformed(f'No strategy in problem {problem_number} '
+                                   f'while providing answer.')
+        start = time.time()
+        answer = solve(problem_number)
+        spent = time.time() - start
+
+        if spent > 60:
+            raise OneMinuteRuleViolation(f"Problem {problem_number} took "
+                                         f"{spent} seconds, which is more "
+                                         f"than a minute!")
+
+        reference_answer = parameters['answer_b64'].decode()
+
+        if answer != reference_answer:
+            raise AnswerVerifcationFailed(f'In problem {problem_number} the '
+                                          f'calculated answer is {answer} '
+                                          f'whereas the reference answer is '
+                                          f'{reference_answer}.')
 
 
-class ProblemMalformedException(Exception):
+class ProblemMalformed(Exception):
+    pass
+
+
+class OneMinuteRuleViolation(Exception):
+    pass
+
+
+class AnswerVerifcationFailed(Exception):
     pass
