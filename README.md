@@ -12,6 +12,9 @@ however in the spirit of Project Euler these are sometimes not used.
 
 The testing also includes benchmarking, that is, the dreaded "one-minute rule."
 
+Currently there are 6 solved problems available here, from the 196 that I 
+have solved and 591 (and counting) available.
+
 Installation
 ============
 Make sure you are in a Python 3.6 virtual environment and executing in the 
