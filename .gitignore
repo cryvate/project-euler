@@ -9,3 +9,4 @@ MANIFEST
 coverage_html_report
 *coverage*
 .coverage
+out
