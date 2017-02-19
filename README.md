@@ -10,9 +10,8 @@ testing, further problems or simply fun, a more parametrized solution is given.
 Often better solutions are available in certain mathematical packages, 
 however in the spirit of Project Euler these are sometimes not used.
 
-The testing also includes benchmarking, that is, the dreaded "one-minute rule."
-
-Currently there are 6 solved problems available here, from the 196 that I 
+The testing also includes benchmarking, that is, the dreaded "one-minute 
+rule." Currently there are 10 solved problems available here, from the 196 that I 
 have solved and 591 (and counting) available.
 
 Installation
@@ -44,5 +43,5 @@ If all is well, it should come back with something like:
 Documentation
 =============
 
-Every problem has an associated *strategy string*, however at this time, 
-these are not collated in any way. Neither is the documentation int he library 
+Every problem has an associated *strategy* explaining how the solution was 
+reached, however at this time, these are not collated in any way. 
