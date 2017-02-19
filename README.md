@@ -1,4 +1,4 @@
-# project-euler
+# project-euler [![Build Status](https://travis-ci.org/cryvate/project-euler.svg?branch=master)](https://travis-ci.org/cryvate/project-euler)
 
 This repository contains code that when run provides solutions to problems 
 at [Project Euler](https://projecteuler.net/).
