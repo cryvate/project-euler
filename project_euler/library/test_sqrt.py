@@ -1,12 +1,11 @@
+from math import sqrt
+
 import pytest
 
-from .sqrt import csqrt, fsqrt
+from .sqrt import fsqrt, csqrt
 
 
-@pytest.mark.parametrize("n", (10 ** n for n in range(10)))
-def test_sqrt(n):
-    lower = fsqrt(n)
-    upper = csqrt(n)
-
-    assert upper - lower in (0, 1)
-    assert lower ** 2 <= n <= upper ** 2
+@pytest.mark.parametrize('n', range(100, 1000))
+def test_sqrt(n: int) -> None:
+    assert max(x for x in range(n) if x * x <= n) == fsqrt(n)
+    assert min(x for x in range(n) if x * x >= n) == csqrt(n)
