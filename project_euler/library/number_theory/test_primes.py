@@ -39,6 +39,8 @@ def test_sieve():
 
     n = max(primes_list)
 
+    assert prime_sieve(0) == []
+
     assert list(prime_sieve(n + 1)) == primes_list
 
 

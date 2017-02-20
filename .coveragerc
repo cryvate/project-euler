@@ -1,8 +1,20 @@
 [run]
-omit = *test*
+omit =
+    *test*
+    *conf.py
 
 [report]
 skip_covered = True
+fail_under = 100
+exclude_lines =
+    # re-enable default
+    pragma: no cover
+
+    # silly input in problems (say)
+    raise ValueError
+
+    # script-code
+    if __name__ == .__main__.:
 
 [html]
 directory = coverage_html_report

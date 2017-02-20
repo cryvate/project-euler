@@ -5,3 +5,8 @@ install:
   - pip install .
 script:
   - tox
+  - bash ./deploy_pages.sh
+env:
+  global:
+  - ENCRYPTION_LABEL: "db433b57c80d"
+  - COMMIT_AUTHOR_EMAIL: "wagenaarhenkjaap@gmail.com"

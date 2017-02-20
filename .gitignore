@@ -6,5 +6,6 @@ venv
 *.egg-info
 .tox
 MANIFEST
-.coverage
 coverage_html_report
+.coverage
+out
