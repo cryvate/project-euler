@@ -10,15 +10,12 @@ def is_prime(n: int) -> bool:
         if n % factor == 0:
             return False
 
-        if factor * factor > n:
-            return True
-
     return True
 
 
 def smallest_prime_factor(n: int) -> int:
     if n <= 1:
-        raise ValueError
+        raise ValueError(f'Cannot find smallest prime factor of {n}.')
 
     for factor in range(2, fsqrt(n) + 1):
         if n % factor == 0:
@@ -27,9 +24,19 @@ def smallest_prime_factor(n: int) -> int:
     return n
 
 
+def generate_prime_factors(n: int) -> int:
+    while n > 1:
+        factor = smallest_prime_factor(n)
+
+        yield factor
+
+        while n % factor == 0:
+            n //= factor
+
+
 def largest_prime_factor(n: int) -> int:
     if n <= 1:
-        raise ValueError
+        raise ValueError(f'Cannot find largest prime factor of {n}.')
 
     bound = fsqrt(n) + 1
     factor = 2

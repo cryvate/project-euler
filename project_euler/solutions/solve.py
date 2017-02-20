@@ -26,8 +26,6 @@ def solve(problem_number: int) -> str:
         raise SolveException("This problem does not seem to have a solution"
                              "provided by this package.") from e
 
-    print(problem_module.solve())
-
     return problem_module.solve()
 
 
@@ -40,4 +38,4 @@ if __name__ == '__main__':
 
     problem_number = arguments['<problem_number>']
 
-    solve(problem_number)
+    print(solve(problem_number))
