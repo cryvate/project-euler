@@ -1,5 +1,3 @@
-from math import sqrt
-
 import pytest
 
 from .sqrt import fsqrt, csqrt

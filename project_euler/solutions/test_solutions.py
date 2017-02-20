@@ -35,7 +35,7 @@ def test_yaml_problems(problem_number: int):
         answer = solve(problem_number)
         spent = time.time() - start
 
-        if spent > 60 and False:  # currently disabled as tox slow.
+        if spent > 60:
             raise OneMinuteRuleViolation(f"Problem {problem_number} took "
                                          f"{spent} seconds, which is more "
                                          f"than a minute!")
