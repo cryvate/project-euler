@@ -6,6 +6,7 @@ sequences_dict = {}
 reference_values = {
     'fibonacci': [0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89],
     'primes': [2, 3, 5, 7, 11, 13, 17, 19, 23, 29],
+    'collatz': [13, 40, 20, 10, 5, 16, 8, 4, 2, 1],
 }
 
 for attribute in dir(sequence_module):
