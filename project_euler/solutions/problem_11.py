@@ -42,7 +42,7 @@ GRID = [[8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91,
          67, 48]]
 
 
-def solve(grid: List[List[float]] = GRID, length: int = 4) -> str:
+def solve(grid: List[List[float]] = GRID, length: int = 4) -> int:
     greatest_product = 1
 
     rows = len(GRID[0])
@@ -73,4 +73,4 @@ def solve(grid: List[List[float]] = GRID, length: int = 4) -> str:
                           grid[i + 2][j + 2] * grid[i + 3][j + 3]
                 greatest_product = max(greatest_product, product)
 
-    return str(greatest_product)
+    return greatest_product

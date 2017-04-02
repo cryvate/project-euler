@@ -23,4 +23,4 @@ def solve(bound: int=1_000_000) -> str:
             maximum_length = length
             maximum_index = n
 
-    return str(maximum_index)
+    return maximum_index
