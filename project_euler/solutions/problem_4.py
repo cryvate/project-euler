@@ -1,4 +1,4 @@
-def solve() -> str:
+def solve() -> int:
     highest = 0
     for b in range(999, 99, -1):
         if b * b < highest:
@@ -9,4 +9,4 @@ def solve() -> str:
             if str(a * b) == str(a * b)[::-1]:
                 highest = a * b
 
-    return str(highest)
+    return highest

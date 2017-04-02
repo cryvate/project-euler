@@ -3,7 +3,7 @@ from math import gcd
 from ..library.sqrt import fsqrt
 
 
-def solve(number: int=1000) -> str:
+def solve(number: int=1000) -> int:
     if number <= 0 or number % 2 != 0:
         raise ValueError
 
@@ -26,4 +26,4 @@ def solve(number: int=1000) -> str:
                     b = 2 * m * n * d
                     c = d * (m * m + n * n)
 
-                    return str(a * b * c)
+                    return a * b * c

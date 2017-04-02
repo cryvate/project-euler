@@ -1,7 +1,7 @@
 from math import gcd
 
 
-def solve(number: int=20) -> str:
+def solve(number: int=20) -> int:
     if number <= 0:
         raise ValueError
 
@@ -10,4 +10,4 @@ def solve(number: int=20) -> str:
     for i in range(1, number + 1):
         lcd = (lcd * i) // gcd(lcd, i)
 
-    return str(lcd)
+    return lcd

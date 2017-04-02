@@ -1,7 +1,7 @@
 from project_euler.library.number_theory.primes import smallest_prime_factor
 
 
-def solve(n: int=600851475143) -> str:
+def solve(n: int=600851475143) -> int:
     while True:
         factor = smallest_prime_factor(n)
 
@@ -9,4 +9,4 @@ def solve(n: int=600851475143) -> str:
             n //= factor
 
         if n == 1:
-            return str(factor)
+            return factor
