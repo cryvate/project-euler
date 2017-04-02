@@ -2,9 +2,6 @@ from math import gcd
 
 
 def solve(number: int=20) -> int:
-    if number <= 0:
-        raise ValueError
-
     lcd = 1
 
     for i in range(1, number + 1):

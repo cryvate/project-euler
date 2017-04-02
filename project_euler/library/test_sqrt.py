@@ -1,12 +1,15 @@
 import pytest
 
-from .sqrt import csqrt, fsqrt
+from .sqrt import fsqrt, csqrt, is_square, is_square_fast
 
 
-@pytest.mark.parametrize("n", (10 ** n for n in range(10)))
-def test_sqrt(n):
-    lower = fsqrt(n)
-    upper = csqrt(n)
+@pytest.mark.parametrize('n', range(100))
+def test_sqrt(n: int) -> None:
+    assert max(x for x in range(n + 1) if x * x <= n) == fsqrt(n)
+    assert min(x for x in range(n + 1) if x * x >= n) == csqrt(n)
 
-    assert upper - lower in (0, 1)
-    assert lower ** 2 <= n <= upper ** 2
+
+@pytest.mark.parametrize('n', range(100))
+def test_is_square(n: int) -> None:
+    assert (fsqrt(n) == csqrt(n)) == is_square(n)
+    assert (fsqrt(n) == csqrt(n)) == is_square_fast(n)

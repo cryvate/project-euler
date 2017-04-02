@@ -38,6 +38,16 @@ If all is well, it should come back with something like:
     py36: commands succeeded
     congratulations :)
     
+# Library features
+
+- Floor and ceil of square root of an arbitrary size integer.
+- Sequences as generators:
+  + Fibonacci
+  + Primes
+  + ...
+- Number Theory
+  + ...
+    
 # Documentation
 
 Every problem has an associated *strategy* explaining how the solution was 
@@ -52,8 +62,6 @@ reached, however at this time, these are not collated in any way.
 ## Library
 - Continued fractions and associated topics like Pell's equation, decimal 
 expansion (of rationals).
-- Extended Euclid's Algorithm (Bézout's identity) and associated Chine 
-Remainder Theorem.
 - Pythagorean triplet generation (using trees and matrices).
 - Sequences like the triangular number and other common sequences.
 - Documentation (and decide what to use, see backend).

@@ -4,8 +4,8 @@ from ..library.sqrt import fsqrt
 
 
 def solve(number: int=1000) -> int:
-    if number <= 0 or number % 2 != 0:
-        raise ValueError
+    if number % 2 != 0:
+        raise ValueError("No solution if number(={number}) odd.")
 
     number //= 2
 
