@@ -1,6 +1,5 @@
 import pytest
 
-
 from .lcd import lcd
 
 

@@ -36,7 +36,9 @@ def test_largest_prime_factor(p: int, remainder: int) -> None:
 
 @pytest.mark.parametrize("n", range(1, 100))
 def test_generate_prime_factors_multiplicity(n: int) -> None:
-    for contribution in generate_prime_factors_multiplicity(n):
+    for factor, multiplicity in generate_prime_factors_multiplicity(n):
+        contribution = factor ** multiplicity
+
         assert n % contribution == 0
 
         n //= contribution
