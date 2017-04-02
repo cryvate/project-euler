@@ -26,4 +26,4 @@ def letters_in_number(n: int) -> int:
 
 
 def solve(bound: int=1000) -> str:
-    return sum(letters_in_number(n) for n in range(1, bound + 1))
+    return str(sum(letters_in_number(n) for n in range(1, bound + 1)))
