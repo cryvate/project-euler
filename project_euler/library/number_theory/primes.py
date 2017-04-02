@@ -1,37 +1,51 @@
 from ..sqrt import fsqrt
-from typing import Sequence
+from typing import Sequence, Tuple
 
 
-def is_prime(n: int) -> bool:
+def is_prime(n: int, sieve: Sequence[int]=None) -> bool:
     if n <= 1:
         return False
 
-    for factor in range(2, fsqrt(n) + 1):
+    for factor in range(2, fsqrt(n) + 1) if sieve is None else sieve:
         if n % factor == 0:
             return False
 
     return True
 
 
-def smallest_prime_factor(n: int) -> int:
+def smallest_prime_factor(n: int, sieve: Sequence[int]=None) -> int:
     if n <= 1:
         raise ValueError(f'Cannot find smallest prime factor of {n}.')
 
-    for factor in range(2, fsqrt(n) + 1):
+    for factor in range(2, fsqrt(n) + 1) if sieve is None else sieve:
         if n % factor == 0:
             return factor
 
     return n
 
 
-def generate_prime_factors(n: int) -> int:
+def generate_prime_factors(n: int, sieve: Sequence[int]=None) -> int:
     while n > 1:
-        factor = smallest_prime_factor(n)
+        factor = smallest_prime_factor(n, sieve)
 
         yield factor
 
         while n % factor == 0:
             n //= factor
+
+
+def generate_prime_factors_multiplicity(n: int, sieve: Sequence[int] = None) \
+        -> Tuple[int, int]:
+    while n > 1:
+        factor = smallest_prime_factor(n, sieve)
+
+        multiplicity = 0
+
+        while n % factor == 0:
+            n //= factor
+            multiplicity += 1
+
+        yield factor, multiplicity
 
 
 def largest_prime_factor(n: int) -> int:
@@ -54,23 +68,6 @@ def largest_prime_factor(n: int) -> int:
         factor += 1
 
     return n
-
-
-def is_prime_using_sieve(n: int, sieve: Sequence[int]) -> bool:
-    if n <= 1:
-        return False
-
-    if n in sieve:
-        return True
-
-    permissible_factors = (factor for factor in range(2, fsqrt(n) + 1)
-                           if factor in sieve)
-
-    for factor in permissible_factors:
-        if n % factor == 0:
-            return False
-
-    return True
 
 
 def prime_sieve(n: int) -> Sequence[int]:
