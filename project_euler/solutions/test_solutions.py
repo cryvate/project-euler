@@ -32,7 +32,7 @@ def test_yaml_problems(problem_number: int):
             raise ProblemMalformed(f'No strategy in problem {problem_number} '
                                    f'while providing answer.')
         start = time.time()
-        answer = solve(problem_number)
+        answer = str(solve(problem_number))  # often more natural to return int
         spent = time.time() - start
 
         if spent > 60:

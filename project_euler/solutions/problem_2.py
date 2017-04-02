@@ -1,7 +1,7 @@
 from project_euler.library.sequences import fibonacci_sequence
 
 
-def solve(bound: int=4_000_000) -> str:
+def solve(bound: int=4_000_000) -> int:
     series = fibonacci_sequence()
 
     counter = 0
@@ -13,4 +13,4 @@ def solve(bound: int=4_000_000) -> str:
         if rabbits % 2 == 0:
             counter += rabbits
 
-    return str(counter)
+    return counter
