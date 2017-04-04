@@ -20,4 +20,4 @@ def solve(begin: int=1901, end: int=2000) -> str:
         for month in range(12):
             mondays += zellers_congruence(1, month, year) == 1
 
-    return str(mondays)
+    return mondays

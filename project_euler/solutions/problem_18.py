@@ -30,4 +30,4 @@ def solve(triangle: List[List[float]] = TRIANGLE) -> str:
                                     max(shadow_triangle[i + 1][j + 0],
                                         shadow_triangle[i + 1][j + 1])
 
-    return str(shadow_triangle[0][0])
+    return shadow_triangle[0][0]

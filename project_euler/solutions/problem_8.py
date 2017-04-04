@@ -20,7 +20,7 @@ problem_string = '73167176531330624919225119674426574742355349194934'\
                  '71636269561882670428252483600823257530420752963450'
 
 
-def solve(string: str=problem_string, amount: int=13):
+def solve(string: str=problem_string, amount: int=13) -> int:
     highest = 0
     for i in range(len(string) + 1 - amount):
         product = 1
@@ -31,4 +31,4 @@ def solve(string: str=problem_string, amount: int=13):
         if product >= highest:
             highest = product
 
-    return str(highest)
+    return highest
