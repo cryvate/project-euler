@@ -14,5 +14,5 @@ description: >
 answer_b64: !!binary |
     NDQzODM5
 strategy: >
-    Just have to go up to 10^7. There are lots of small little tricks one
-    could do to speed this up.
+    Just have to go up to 9 * 10^6. Some very explicite looping to go faster.
+    C++ would be more appropriate
