@@ -10,4 +10,3 @@ answer_b64: !!binary |
     NjQ4
 strategy: >
     Use brute force. Could optimize to get rid of zeroes on end.
-
