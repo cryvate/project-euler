@@ -1,0 +1,17 @@
+title: Pandigital Products
+description: >
+    We shall say that an n-digit number is pandigital if it makes use of all the digits 1 to n exactly once; for example, the 5-digit number, 15234, is 1 through 5 pandigital.
+
+    The product 7254 is unusual, as the identity, 39 × 186 = 7254, containing multiplicand, multiplier, and product is 1 through 9 pandigital.
+
+    Find the sum of all products whose multiplicand/multiplier/product identity can be written as a 1 through 9 pandigital.
+
+    HINT: Some products can be obtained in more than one way so be sure to only include it once in your sum.
+
+answer_b64: !!binary |
+    NDUyMjg=
+strategy: >
+    By couting digits, the result must have 4 digits, by selecting these
+    first, we reduce the possibilities. We can also break out of the loop
+    once we've found a way to write out this product. This is not
+    implemented as it would require doing partial permutations.
