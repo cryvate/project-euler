@@ -19,4 +19,5 @@ description: >
 answer_b64: !!binary |
     LTU5MjMx
 strategy: >
-    Simply do it. Most will fail quickly because b composite.
+    Simply try it. Could have a look up table for small numbers whether they
+     are prime or no to speed things along.
