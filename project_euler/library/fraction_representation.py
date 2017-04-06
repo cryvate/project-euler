@@ -1,6 +1,8 @@
 from fractions import Fraction
 
-from typing import List, Tuple
+from typing import Tuple
+
+from .base import list_to_number
 
 
 Representation = Tuple[Tuple[int, int], Tuple[int, int]]
@@ -52,20 +54,10 @@ def fraction_to_representation(fraction: Fraction,
     else:  # repeating
         index = remainders.index(remainder)
 
-    def join_blocks(blocks: List[List[int]]) -> Tuple[List[int], int]:
-        length = 0
-        accumulate = 0
-
-        for block in blocks:
-            length += block_length
-
-            accumulate *= block_size
-            accumulate += block
-
-        return accumulate, length
-
-    prefix = join_blocks(blocks[:index])
-    repeat = join_blocks(blocks[index:])
+    prefix = list_to_number(blocks[:index], block_size), \
+        index * block_length
+    repeat = list_to_number(blocks[index:], block_size), \
+        (len(blocks) - index) * block_length
 
     return prefix, repeat
 
