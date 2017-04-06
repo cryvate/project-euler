@@ -8,3 +8,4 @@ description: >
 answer_b64: !!binary |
     NTU=
 strategy: >
+    Simply use brute-force.
