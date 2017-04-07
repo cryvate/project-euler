@@ -2,6 +2,8 @@ from itertools import count
 
 from typing import Generator
 
+from .number_theory.primes import primes_sequence  # noqa: F401
+
 
 def fibonacci_sequence() -> Generator[int, None, None]:
     a, b = 0, 1
@@ -9,16 +11,6 @@ def fibonacci_sequence() -> Generator[int, None, None]:
     while True:
         yield a
         a, b = b, a + b
-
-
-def primes_sequence() -> Generator[int, None, None]:
-    from project_euler.library.number_theory.primes import is_prime
-
-    for n in count(2):
-        if is_prime(n):
-            yield n
-
-        n += 1
 
 
 def collatz_sequence(n: int=13) -> Generator[int, None, None]:
