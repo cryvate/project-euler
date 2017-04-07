@@ -12,9 +12,8 @@ problems = numbers
 
 @pytest.mark.parametrize("problem_number", problems)
 def test_yaml_problems(problem_number: int):
-    filename = os.path.join(os.path.split(__file__)[0], f'problem_'
-                                                        f'{problem_number}'
-                                                        f'.yaml')
+    filename = os.path.join(os.path.split(__file__)[0],
+                            f'problem_{problem_number}.yaml')
     try:
         with open(filename) as f:
             parameters = yaml.load(f)
