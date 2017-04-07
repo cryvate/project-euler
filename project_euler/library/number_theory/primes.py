@@ -1,5 +1,6 @@
+from typing import Generator, Sequence, Tuple
+
 from ..sqrt import fsqrt
-from typing import Sequence, Tuple
 
 
 def is_prime(n: int, sieve: Sequence[int]=None) -> bool:
@@ -24,7 +25,8 @@ def smallest_prime_factor(n: int, sieve: Sequence[int]=None) -> int:
     return n
 
 
-def generate_prime_factors(n: int, sieve: Sequence[int]=None) -> int:
+def generate_prime_factors(n: int, sieve: Sequence[int]=None) -> \
+        Generator[int, None, None]:
     while n > 1:
         factor = smallest_prime_factor(n, sieve)
 
@@ -35,7 +37,7 @@ def generate_prime_factors(n: int, sieve: Sequence[int]=None) -> int:
 
 
 def generate_prime_factors_multiplicity(n: int, sieve: Sequence[int] = None) \
-        -> Tuple[int, int]:
+        -> Generator[Tuple[int, int], None, None]:
     while n > 1:
         factor = smallest_prime_factor(n, sieve)
 

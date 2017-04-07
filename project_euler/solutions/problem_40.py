@@ -20,8 +20,7 @@ def digit_in_integers(n: int) -> int:
 
 def solve() -> int:
     accumulate = 1
-    print(digit_in_integers(12))
-    print(list(digit_in_integers(x) for x in range(1, 30)))
+
     for exp in range(6):
         accumulate *= digit_in_integers(10 ** exp)
 

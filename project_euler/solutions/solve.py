@@ -23,7 +23,7 @@ def solve(problem_number: int) -> str:
         problem_module = import_module(f'.problem_{problem_number}',
                                        package='project_euler.solutions')
     except ModuleNotFoundError as e:
-        raise SolveException(f"This problem {problem_number} does not seem to "
+        raise SolveException(f"The problem {problem_number} does not seem to "
                              "have a solution in this package.") from e
 
     return problem_module.solve()
