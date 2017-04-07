@@ -1,3 +1,5 @@
+from itertools import count
+
 from typing import Generator, Sequence, Tuple
 
 from ..sqrt import fsqrt
@@ -93,3 +95,11 @@ def prime_sieve(n: int) -> Sequence[int]:
             sieve[k * (k - 2 * (i & 1) + 4) // 3::2 * k] = False
 
     return numpy.r_[2, 3, ((3 * numpy.nonzero(sieve)[0][1:] + 1) | 1)]
+
+
+def primes_sequence() -> Generator[int, None, None]:
+    for n in count(2):
+        if is_prime(n):
+            yield n
+
+        n += 1

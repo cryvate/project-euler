@@ -1,0 +1,9 @@
+title: Self Powers
+description: >
+    The series, 1^1 + 2^2 + 3^3 + ... + 10^10 = 10405071317.
+
+    Find the last ten digits of the series, 1^1 + 2^2 + 3^3 + ... + 1000^1000.
+answer_b64: !!binary |
+    OTExMDg0NjcwMA==
+strategy: >
+    Use modular exponentation to reduce load, though unnecssary in Python
