@@ -38,8 +38,6 @@ if __name__ == '__main__':
 
     problem_number = arguments['<problem_number>']
 
-    solution = solve(problem_number)
-
     from project_euler.solutions.test_solutions import \
         AnswerVerifcationFailed, test_yaml_problems
 
