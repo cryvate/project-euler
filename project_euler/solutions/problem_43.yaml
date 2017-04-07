@@ -15,7 +15,7 @@ description: >
 
     Find the sum of all 0 to 9 pandigital numbers with this property.
 answer_b64: !!binary |
-    MTYy
+    MTY2OTUzMzQ4OTA=
 strategy: >
     The condition on 2 means exactly that d_4 is even.
 

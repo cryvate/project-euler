@@ -9,7 +9,7 @@ description: >
 
     Find the pair of pentagonal numbers, P_j and P_k, for which their sum and difference are pentagonal and D = |P_k − P_j| is minimised; what is the value of D?
 answer_b64: !!binary |
-    MTYy
+    NTQ4MjY2MA==
 strategy: >
     Use brute-force, keep track of minimal difference (although first
     solution works in the end, this is not guarantueed).

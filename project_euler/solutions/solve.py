@@ -38,4 +38,16 @@ if __name__ == '__main__':
 
     problem_number = arguments['<problem_number>']
 
-    print(solve(problem_number))
+    solution = solve(problem_number)
+
+    print(f'Solution: {solution}')
+
+    from project_euler.solutions.test_solutions import \
+        AnswerVerifcationFailed, test_yaml_problems
+
+    try:
+        test_yaml_problems(problem_number)
+    except AnswerVerifcationFailed:
+        print(f'This does *NOT* agree with reference answer.')
+    else:
+        print(f'This *does* agree with reference answer.')
