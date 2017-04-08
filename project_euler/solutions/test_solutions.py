@@ -47,9 +47,10 @@ def test_yaml_problems(problem_number: int) -> str:
                                           f'whereas the reference answer is '
                                           f'{reference_answer}.',
                                           answer=answer,
-                                          reference_answer=reference_answer)
+                                          reference_answer=reference_answer,
+                                          spent=spent)
 
-    return answer
+    return answer, spent
 
 
 class ProblemMalformed(Exception):
@@ -61,8 +62,14 @@ class OneMinuteRuleViolation(Exception):
 
 
 class AnswerVerifcationFailed(Exception):
-    def __init__(self, *args, answer: str, reference_answer: str, **kwargs):
+    def __init__(self,
+                 *args,
+                 answer: str,
+                 reference_answer: str,
+                 spent: float,
+                 **kwargs):
         self.answer = answer
         self.reference_answer = reference_answer
+        self.spent = spent
 
         super().__init__(*args, **kwargs)
