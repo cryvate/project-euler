@@ -41,12 +41,14 @@ if __name__ == '__main__':
     from project_euler.solutions.test_solutions import \
         AnswerVerifcationFailed, test_yaml_problems
 
+    spec = '{:6.4f}'
+
     try:
-        result = test_yaml_problems(problem_number)
+        result, spent = test_yaml_problems(problem_number)
     except AnswerVerifcationFailed as e:
-        print(f'Implemented answer: {e.answer}')
+        print(f'Implemented answer: {e.answer} (in {spec.format(e.spent)}s)')
         print(f'Reference solution: {e.reference_answer}')
         print(f'This does *NOT* agree with reference answer.')
     else:
-        print(f'Solution: {result}')
+        print(f'Solution: {result} (in {spec.format(spent)}s)')
         print('This *does* agree with reference answer.')

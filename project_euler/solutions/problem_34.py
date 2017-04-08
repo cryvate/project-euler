@@ -14,11 +14,10 @@ def solve() -> int:
 
         bound += 1
 
-    accumulate = 0
+    counter = 0
 
     for i in range(3, maximum + 1):
         if sum(factorials[int(digit)] for digit in str(i)) == i:
-            print(i)
-            accumulate += i
+            counter += i
 
-    return accumulate
+    return counter

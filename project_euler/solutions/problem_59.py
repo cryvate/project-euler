@@ -43,6 +43,4 @@ def solve(file_path: str='problem_59_cipher.txt',
     secret = [secrets[0] for secrets in allowable_secrets]
     decrypted = [chr(c ^ secret[i % 3]) for i, c in enumerate(encrypted)]
 
-    print(''.join(decrypted))
-
     return sum(ord(c) for c in decrypted)
