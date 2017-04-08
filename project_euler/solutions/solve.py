@@ -23,7 +23,7 @@ def solve(problem_number: int) -> str:
         problem_module = import_module(f'.problem_{problem_number}',
                                        package='project_euler.solutions')
     except ModuleNotFoundError as e:
-        raise SolveException(f"This problem {problem_number} does not seem to "
+        raise SolveException(f"The problem {problem_number} does not seem to "
                              "have a solution in this package.") from e
 
     return problem_module.solve()
@@ -38,4 +38,17 @@ if __name__ == '__main__':
 
     problem_number = arguments['<problem_number>']
 
-    print(solve(problem_number))
+    from project_euler.solutions.test_solutions import \
+        AnswerVerifcationFailed, test_yaml_problems
+
+    spec = '{:6.4f}'
+
+    try:
+        result, spent = test_yaml_problems(problem_number)
+    except AnswerVerifcationFailed as e:
+        print(f'Implemented answer: {e.answer} (in {spec.format(e.spent)}s)')
+        print(f'Reference solution: {e.reference_answer}')
+        print(f'This does *NOT* agree with reference answer.')
+    else:
+        print(f'Solution: {result} (in {spec.format(spent)}s)')
+        print('This *does* agree with reference answer.')
