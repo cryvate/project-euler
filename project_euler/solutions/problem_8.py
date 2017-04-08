@@ -24,7 +24,7 @@ def solve(string: str=problem_string, amount: int=13) -> int:
     highest = 0
     for i in range(len(string) + 1 - amount):
         product = 1
-        print(i)
+
         for digit in string[i: i + amount]:
             product *= int(digit)
 

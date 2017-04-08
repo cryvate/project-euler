@@ -33,7 +33,6 @@ def solve() -> int:
                                     accumulate += number
                                 if number > bound:
                                     return accumulate
-                                print(number)
                             number -= 10
                         number -= 100
                     number -= 1_000

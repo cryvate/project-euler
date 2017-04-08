@@ -17,7 +17,6 @@ def solve(bound: int=100) -> int:
     terms = []
 
     for a in range(2, bound + 1):
-        print(a)
         for b in range(2, bound + 1):
             result = Counter()
 

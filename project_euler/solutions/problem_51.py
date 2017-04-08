@@ -29,9 +29,6 @@ def solve() -> int:
                             if d == digit]
                 masks += list(combinations(digit_at, 3))
 
-        if masks and prime == 121313:
-            print(prime, masks)
-
         for mask in masks:
             masked_representation = list(representation)
             counter = 0
@@ -41,8 +38,6 @@ def solve() -> int:
                     masked_representation[-index] = digit
 
                 number = list_to_number(reversed(masked_representation))
-                if prime == 121313:
-                    print("m", number, number in primes)
 
                 if number in primes:
                     counter += 1
