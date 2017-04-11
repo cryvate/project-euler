@@ -12,4 +12,4 @@ strategy: >
     pairings in such a way that they can be easily looked-up (or seen to not
     be there), simply using Python 'in' doesn't work.
 
-    Bisect might be an laternative instead of what has been done.
+    Bisect might be an alternative instead of what has been done.

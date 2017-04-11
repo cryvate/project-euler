@@ -1,6 +1,6 @@
 from itertools import count
 
-from typing import Generator
+from typing import Generator, Iterable, List
 
 from .number_theory.primes import primes_sequence  # noqa: F401
 
@@ -26,28 +26,45 @@ def collatz_sequence(n: int=13) -> Generator[int, None, None]:
     yield 1
 
 
-def triangle_sequence() -> Generator[int, None, None]:
-    value = 0
+def create_polynomial_sequence(coefficients: List[int]) -> \
+        Generator[int, None, None]:
+    # do not create copy of list: can change on the fly to provide flexibility
+    def polynomial_sequence(start: int=0) -> Generator[int, None, None]:
+        value = 0
 
-    for n in count():
-        yield value
+        for n in count():
+            if n >= start:
+                yield value
 
-        value += n + 1
+            power = 1
 
+            for coefficient in coefficients:
+                value += coefficient * power
+                power *= n
 
-def pentagonal_sequence() -> Generator[int, None, None]:
-    value = 0
-
-    for n in count():
-        yield value
-
-        value += 3 * n + 1
+    return polynomial_sequence
 
 
-def hexagonal_sequence() -> Generator[int, None, None]:
-    value = 0
+triangle_sequence = create_polynomial_sequence([1, 1])
+square_sequence = create_polynomial_sequence([1, 2])
+pentagonal_sequence = create_polynomial_sequence([1, 3])
+hexagonal_sequence = create_polynomial_sequence([1, 4])
+heptagonal_sequence = create_polynomial_sequence([1, 5])
+octagonal_sequence = create_polynomial_sequence([1, 6])
 
-    for n in count():
-        yield value
 
-        value += 4 * n + 1
+def find_intersection_interval(sequence: Iterable[int],
+                               begin: int=None,
+                               end: int=None,
+                               breaking: bool=True) -> \
+        Generator[int, None, None]:
+    for value in sequence:
+        if end is not None and value >= end:
+            if breaking:
+                break
+            else:
+                continue  # pragma: no cover
+                # peephole optimizer says not covered, but it is
+
+        if begin is not None and value >= begin:
+            yield value
