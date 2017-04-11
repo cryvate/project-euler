@@ -95,12 +95,10 @@ CONTINUED_FRACTIONS_ROOTS = [
 
 @pytest.mark.parametrize('a,convergent', CONVERGENTS)
 def test_convergents(a: List[int], convergent: List[Fraction]) -> None:
-    generator = convergent_sequence(a[0])
+    generator = convergent_sequence(a)
 
-    assert next(generator) == convergent[0]
-
-    for i in range(1, len(convergent)):
-        assert generator.send(a[i]) == convergent[i]
+    for computed, expected in zip(generator, convergent):
+        computed == expected
 
 
 @pytest.mark.parametrize('n,expected_output', CONTINUED_FRACTIONS_ROOTS)

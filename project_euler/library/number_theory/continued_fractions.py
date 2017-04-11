@@ -1,20 +1,19 @@
 from math import floor, sqrt
 from fractions import Fraction
 
-from typing import Generator, List, Tuple
+from typing import Generator, Iterable, List, Tuple
 
 
-def convergent_sequence(a_0: int) -> Generator[Fraction, int, None]:
-    a = a_0
-
+def convergent_sequence(generator: Iterable[int]) -> \
+        Generator[Fraction, int, None]:
     h = (0, 1)
     k = (1, 0)
 
-    while True:
+    for a in generator:
         h = h[1], a * h[1] + h[0]
         k = k[1], a * k[1] + k[0]
 
-        a = yield Fraction(h[-1], k[-1])
+        yield Fraction(h[-1], k[-1])
 
 
 def continued_fraction_sqrt(n: int) -> Tuple[List[int], List[int]]:
