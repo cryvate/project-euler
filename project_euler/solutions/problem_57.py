@@ -1,11 +1,11 @@
-from itertools import chain, repeat
+from itertools import chain, cycle
 
 from ..library.number_theory.continued_fractions import convergent_sequence
 from ..library.base import number_to_list
 
 
 def solve(bound: int=1000) -> int:
-    generator = convergent_sequence(chain([1], repeat(2)))
+    generator = convergent_sequence(chain([1], cycle([2])))
 
     count = 0
 
