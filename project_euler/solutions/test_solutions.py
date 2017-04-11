@@ -13,7 +13,7 @@ class OneMinuteRuleViolation(Exception):
 
 
 @pytest.mark.xfail(condition='problem_number == 66',
-                   reason='Problem takes ~30s on normal hardware, Travis is '\
+                   reason='Problem takes ~30s on normal hardware, Travis is '
                           'too slow and goes over 60s',
                    raises=OneMinuteRuleViolation,
                    run=True,
