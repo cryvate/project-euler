@@ -13,6 +13,7 @@ reference_values = {
     'hexagonal': [0, 1, 6, 15, 28, 45],
     'heptagonal': [0, 1, 7, 18, 34, 55],
     'octagonal': [0, 1, 8, 21, 40, 65],
+    'cube': [0, 1, 8, 27, 64],
 }
 
 for attribute in dir(sequence_module):

@@ -51,6 +51,7 @@ pentagonal_sequence = create_polynomial_sequence([1, 3])
 hexagonal_sequence = create_polynomial_sequence([1, 4])
 heptagonal_sequence = create_polynomial_sequence([1, 5])
 octagonal_sequence = create_polynomial_sequence([1, 6])
+cube_sequence = create_polynomial_sequence([1, 3, 3])
 
 
 def find_intersection_interval(sequence: Iterable[int],
