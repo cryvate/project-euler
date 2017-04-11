@@ -4,7 +4,7 @@ from .solve import solve, SolveException
 
 
 def test_solve_valid_problem():
-    solve(1)
+    solve(2)
 
 
 def test_solve_invalid_problem():

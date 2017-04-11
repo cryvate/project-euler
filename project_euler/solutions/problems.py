@@ -8,3 +8,6 @@ for filename in os.listdir(os.path.split(__file__)[0]):
         numbers.append(problem_number)
 
 numbers = sorted(numbers)
+slow_numbers = {  # due to Travis being slower than most machines.
+    64: 120
+}
