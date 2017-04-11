@@ -15,6 +15,8 @@ from importlib import import_module
 
 from docopt import docopt
 
+from project_euler.solutions.test_solutions import test_problems
+
 import project_euler.solutions  # noqa: F401
 
 
@@ -29,6 +31,32 @@ def solve(problem_number: int) -> str:
     return problem_module.solve()
 
 
+class SolutionWrong(Exception):
+    def __init__(self,
+                 *args,
+                 answer: str,
+                 reference_answer: str,
+                 spent: float,
+                 **kwargs):
+        self.answer = answer
+        self.reference_answer = reference_answer
+        self.spent = spent
+
+        super().__init__(*args, **kwargs)
+
+
+class ProblemMalformed(Exception):
+    pass
+
+
+class AnswerVerificationFailed(SolutionWrong):
+    pass
+
+
+class OneMinuteRuleViolation(SolutionWrong):
+    pass
+
+
 class SolveException(Exception):
     pass
 
@@ -38,14 +66,11 @@ if __name__ == '__main__':
 
     problem_number = arguments['<problem_number>']
 
-    from project_euler.solutions.test_solutions import \
-        AnswerVerifcationFailed, test_yaml_problems
-
     spec = '{:6.4f}'
 
     try:
-        result, spent = test_yaml_problems(problem_number)
-    except AnswerVerifcationFailed as e:
+        result, spent = test_problems(problem_number)
+    except SolutionWrong as e:
         print(f'Implemented answer: {e.answer} (in {spec.format(e.spent)}s)')
         print(f'Reference solution: {e.reference_answer}')
         print(f'This does *NOT* agree with reference answer.')
