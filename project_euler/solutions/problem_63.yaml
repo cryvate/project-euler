@@ -1,0 +1,11 @@
+title: Powerful Digit Counts
+description: >
+    The 5-digit number, 16807=7^5, is also a fifth power. Similarly, the
+    9-digit number, 134217728=8^9, is a ninth power.
+
+    How many n-digit positive integers exist which are also an nth power?
+answer_b64: !!binary |
+    NDk=
+strategy: >
+    an n-digit number is between 10^(n - 1) and 10^n, so as n -> infty, we
+    must have the base goes to 9, to once 9^n is below 10^(n - 1)
