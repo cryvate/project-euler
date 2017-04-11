@@ -21,8 +21,6 @@ def solve(perms: int=5) -> int:
                                                begin=10 ** digits,
                                                end=10 ** (digits + 1))
 
-            valid = []
-
             for cube in cubes:
                 if counter[tuple(sorted(number_to_list(cube)))] == perms:
                     cubes = find_intersection_interval(cube_sequence(),
