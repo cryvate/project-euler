@@ -11,8 +11,9 @@ def mediant(left: Fraction, right: Fraction) -> Fraction:
 
 def stern_brocot_tree(left: Fraction=Fraction(0, 1),
                       right: Fraction=Fraction(1, 1),
-                      classifier: Callable[[Fraction], bool] = None) \
-        -> Generator[Fraction, None, None]:
+                      classifier: Callable[[Fraction], bool]=None,
+                      depth: int=None) -> \
+        Generator[Fraction, None, None]:
     queue = Queue()
 
     queue.put((left, right))
@@ -22,8 +23,15 @@ def stern_brocot_tree(left: Fraction=Fraction(0, 1),
 
         median = mediant(left, right)
 
-        if classifier is None or classifier(median):
-            yield median
+        if classifier is not None and not classifier(median):
+            continue
+        if depth is not None and median.denominator > depth:
+            continue
 
-            queue.put((left, median))
-            queue.put((median, right))
+        yield median
+
+        queue.put((left, median))
+        queue.put((median, right))
+
+
+

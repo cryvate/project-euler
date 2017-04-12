@@ -26,16 +26,18 @@ def test_mediant(left: Fraction, right: Fraction, expected_output: Fraction) \
     assert mediant(left, right) == expected_output
 
 
-def test_stern_brocot_tree(denominator: int=8) -> None:
-    def denominator_test(fraction: Fraction) -> bool:
-        return fraction.denominator <= denominator
+def test_stern_brocot_tree(depth: int=8) -> None:
+    def classifier(fraction: Fraction) -> bool:
+        return fraction.denominator <= depth
 
-    tree = list(stern_brocot_tree(classifier=denominator_test))
+    tree_depth = list(stern_brocot_tree(depth=depth))
+    tree_classifier = list(stern_brocot_tree(classifier=classifier))
 
     fractions = set()
 
-    for n in range(2, denominator + 1):
+    for n in range(2, depth + 1):
         for m in range(1, n):
             fractions.add(Fraction(m, n))
 
-    assert set(tree) == fractions
+    assert set(tree_depth) == fractions
+    assert set(tree_classifier) == fractions
