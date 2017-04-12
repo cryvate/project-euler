@@ -50,20 +50,19 @@ def test_problems(problem_number: int) -> str:
                 slower_time = slow_problems[problem_number]
                 if spent > slower_time:
                     raise OneMinuteRuleViolation(
-                        f'Problem {problem_number} took {spec.format(spent)} '
-                        f'seconds, which is more than the {slower_time} '
-                        f'seconds it is allowed to take.', **kwargs)
+                        f'Problem {problem_number} took {spec.format(spent)}s,'
+                        f' which is more than the {slower_time}s it is '
+                        f'allowed to take.', **kwargs)
                 else:
                     warnings.warn(
-                        f'Problem {problem_number} took {spec.format(spent)}'
-                        f'seconds, which is less than the {slower_time} '
-                        f'seconds it is allowed to take, but more than 60'
-                        f'seconds.',
+                        f'Problem {problem_number} took {spec.format(spent)}s,'
+                        f' which is less than the {slower_time}s it is allowed'
+                        f' to take, but more than 60s',
                         UserWarning)
 
         elif spent > 60:
             raise OneMinuteRuleViolation(
-                f'Problem {problem_number} took {spec.format(spent)} seconds, '
+                f'Problem {problem_number} took {spec.format(spent)}s, '
                 f'which is more than a minute!', **kwargs)
 
         reference_answer = parameters['answer_b64'].decode()
@@ -71,7 +70,7 @@ def test_problems(problem_number: int) -> str:
         if answer != reference_answer:
             raise AnswerVerificationFailed(
                 f'In problem {problem_number} the calculated answer is '
-                f'{answer}, the reference answer is {reference_answer}.',
-                **kwargs)
+                f'{answer} ({spec.format(spent)}s), the reference answer is '
+                f'{reference_answer}.', **kwargs)
 
     return answer, spent
