@@ -1,9 +1,6 @@
 from fractions import Fraction
 
-
-def mediant(self: Fraction, other: Fraction) -> Fraction:
-    return Fraction(self.numerator + other.numerator,
-                    self.denominator + other.denominator)
+from ..library.number_theory.stern_brocot_tree import mediant
 
 
 def solve(bound: int=1_000_000) -> int:
