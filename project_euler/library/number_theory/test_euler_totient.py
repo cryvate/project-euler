@@ -1,7 +1,5 @@
 import pytest
 
-from typing import Iterable
-
 from .euler_totient import phi, phi_range
 from .gcd import gcd
 
