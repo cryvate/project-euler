@@ -81,12 +81,12 @@ def prime_sieve(n: int) -> Sequence[int]:
     http://stackoverflow.com/questions/2068372/fastest-way-to-list-all
     -primes-below-n/3035188#3035188
     """
-    import numpy
+    import numpy as np
 
     if n <= 1:
         return [False] * n
 
-    sieve = numpy.ones(n // 3 + (n % 6 == 2), dtype=numpy.bool)
+    sieve = np.ones(n // 3 + (n % 6 == 2), dtype=np.bool)
 
     for i in range(1, fsqrt(n) // 3 + 1):
         if sieve[i]:
@@ -94,7 +94,7 @@ def prime_sieve(n: int) -> Sequence[int]:
             sieve[k * k // 3::2 * k] = False
             sieve[k * (k - 2 * (i & 1) + 4) // 3::2 * k] = False
 
-    return numpy.r_[2, 3, ((3 * numpy.nonzero(sieve)[0][1:] + 1) | 1)]
+    return np.r_[2, 3, ((3 * np.nonzero(sieve)[0][1:] + 1) | 1)].tolist()
 
 
 def primes_sequence() -> Generator[int, None, None]:
