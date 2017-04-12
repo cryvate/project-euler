@@ -2,7 +2,8 @@ from fractions import Fraction
 
 import pytest
 
-from .stern_brocot_tree import mediant, stern_brocot_tree
+from .stern_brocot_tree import mediant, stern_brocot_tree, \
+    size_stern_brocot_tree
 
 MEDIANTS = [
     (Fraction(0), Fraction(1), Fraction(1, 2)),
@@ -41,3 +42,9 @@ def test_stern_brocot_tree(depth: int=8) -> None:
 
     assert set(tree_depth) == fractions
     assert set(tree_classifier) == fractions
+
+
+@pytest.mark.parametrize('depth', range(5, 10))
+def test_size_stern_brocot_tree(depth: int) -> None:
+    assert len(list(stern_brocot_tree(depth=depth))) == \
+           size_stern_brocot_tree(depth)

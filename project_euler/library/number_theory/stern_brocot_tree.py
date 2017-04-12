@@ -3,6 +3,8 @@ from queue import Queue
 
 from typing import Callable, Generator
 
+from .euler_totient import phi_range
+
 
 def mediant(left: Fraction, right: Fraction) -> Fraction:
     return Fraction(left.numerator + right.numerator,
@@ -34,4 +36,5 @@ def stern_brocot_tree(left: Fraction=Fraction(0, 1),
         queue.put((median, right))
 
 
-
+def size_stern_brocot_tree(depth: int=None) -> int:
+    return sum(phi_range(depth)) - 1
