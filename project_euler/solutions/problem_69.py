@@ -1,5 +1,4 @@
 from ..library.number_theory.primes import primes_sequence
-from ..library.number_theory.euler_totient import phi
 
 
 def solve(bound: int=1_000_000):
