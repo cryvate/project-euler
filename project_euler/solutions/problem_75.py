@@ -1,7 +1,5 @@
 import numpy as np
 
-from itertools import count
-
 from ..library.number_theory.pythagorean_triples import \
     primitive_pythagorean_triples, PythagoreanTriplet
 
