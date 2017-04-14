@@ -1,4 +1,4 @@
-title: Singular Integer Right Angles
+title: Counting Summations
 description: >
     It is possible to write five as a sum in exactly six different ways:
 
@@ -13,4 +13,4 @@ description: >
 answer_b64: !!binary |
     MTkwNTY5Mjkx
 strategy: >
-    Use dynamic programming
+    Use the generalized pentagonal numbers.
