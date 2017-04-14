@@ -1,4 +1,4 @@
-from ..library.partitions import partitions
+from ..library.combinatorics.partitions import partitions
 
 
 def solve(index: int=100) -> int:

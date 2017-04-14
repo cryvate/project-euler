@@ -1,6 +1,6 @@
 from itertools import count
 
-from ..library.partitions import Partitions
+from ..library.combinatorics.partitions import Partitions
 from ..library.number_theory.primes import is_prime
 
 
