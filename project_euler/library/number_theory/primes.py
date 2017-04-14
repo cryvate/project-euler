@@ -1,4 +1,4 @@
-from itertools import count
+from itertools import chain, count
 
 from typing import Generator, Sequence, Tuple
 
@@ -9,9 +9,20 @@ def is_prime(n: int, sieve: Sequence[int]=None) -> bool:
     if n <= 1:
         return False
 
-    for factor in range(2, fsqrt(n) + 1) if sieve is None else sieve:
-        if n % factor == 0:
-            return False
+    if sieve is None:
+        for factor in range(2, fsqrt(n) + 1):
+            if n % factor == 0:
+                return False
+    elif n <= sieve[-1]:
+        return n in sieve
+    elif n <= sieve[-1] ** 2:
+        for factor in sieve:
+            if n % factor == 0:
+                return False
+    else:
+        for factor in chain(sieve, range(sieve[-1] + 1, fsqrt(n) + 1)):
+            if n % factor == 0:
+                return False
 
     return True
 
