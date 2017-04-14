@@ -1,7 +1,7 @@
 from typing import List
 
 
-from project_euler.library.number_theory.primes import prime_sieve
+from ..library.number_theory.primes import prime_sieve
 
 
 def is_circular_prime(n: int, sieve: List[int]) -> bool:

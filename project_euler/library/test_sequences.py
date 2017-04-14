@@ -1,6 +1,6 @@
 import pytest
 
-from project_euler.library import sequences as sequence_module
+from ..library import sequences as sequence_module
 
 sequences_dict = {}
 reference_values = {
@@ -10,6 +10,7 @@ reference_values = {
     'triangle': [0, 1, 3, 6, 10, 15, 21, 28, 36, 45, 55],
     'square': [0, 1, 4, 9, 16, 25],
     'pentagonal': [0, 1, 5, 12, 22, 35, 51, 70, 92, 117, 145],
+    'negative_pentagonal': [0, 2, 7, 15, 26],
     'hexagonal': [0, 1, 6, 15, 28, 45],
     'heptagonal': [0, 1, 7, 18, 34, 55],
     'octagonal': [0, 1, 8, 21, 40, 65],

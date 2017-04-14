@@ -1,4 +1,4 @@
-from project_euler.library.sequences import fibonacci_sequence
+from ..library.sequences import fibonacci_sequence
 
 
 def solve(bound: int=4_000_000) -> int:
