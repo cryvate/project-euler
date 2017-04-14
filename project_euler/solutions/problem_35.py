@@ -16,7 +16,7 @@ def is_circular_prime(n: int, sieve: List[int]) -> bool:
 
 
 def solve(digits: int=6) -> int:
-    maximum = 10 ** digits
-    sieve = prime_sieve(fsqrt(maximum))
+    bound = 10 ** digits
+    sieve = prime_sieve(fsqrt(bound))
 
-    return sum(1 for prime in range(maximum) if is_circular_prime(prime, sieve))
+    return sum(1 for prime in range(bound) if is_circular_prime(prime, sieve))
