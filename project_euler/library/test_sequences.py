@@ -1,6 +1,6 @@
 import pytest
 
-from project_euler.library import sequences as sequence_module
+from ..library import sequences as sequence_module
 
 sequences_dict = {}
 reference_values = {

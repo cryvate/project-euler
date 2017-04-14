@@ -12,8 +12,8 @@ def solve(file_path: str= 'problem_79_keylog.txt', relative: bool=True) -> str:
         constraints_raw = constraints_file.read()
 
     constraints = [list(constraint)
-                  for constraint in constraints_raw.split('\n')
-                  if constraint != '']
+                   for constraint in constraints_raw.split('\n')
+                   if constraint != '']
 
     alphabet_set = set(chain(*constraints))
     alphabet = sorted(alphabet_set)

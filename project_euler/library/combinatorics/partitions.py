@@ -1,6 +1,6 @@
 from typing import Iterable
 
-from project_euler.library.sequences import pentagonal_sequence, negative_pentagonal_sequence
+from ..sequences import pentagonal_sequence, negative_pentagonal_sequence
 
 
 def partitions(n, numbers: Iterable[int]=None) -> int:

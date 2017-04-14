@@ -1,4 +1,4 @@
-from project_euler.library.combinatorics.partitions import partitions
+from .partitions import partitions
 
 
 def test_partitions() -> None:
