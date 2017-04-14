@@ -1,3 +1,4 @@
+from bisect import bisect_right
 from itertools import chain, count
 
 from typing import Generator, Sequence, Tuple
@@ -14,7 +15,9 @@ def is_prime(n: int, sieve: Sequence[int]=None) -> bool:
             if n % factor == 0:
                 return False
     elif n <= sieve[-1]:
-        return n in sieve
+        index = bisect_right(sieve, n)
+        if not index or sieve[index - 1] != n:
+            return False
     elif n <= sieve[-1] ** 2:
         for factor in sieve:
             if n % factor == 0:

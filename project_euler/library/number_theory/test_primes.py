@@ -7,9 +7,10 @@ from .primes import is_prime, largest_prime_factor,\
 primes_list = reference_values["primes"]
 
 
-@pytest.mark.parametrize("n", range(-100, max(primes_list) + 1))
+@pytest.mark.parametrize("n", range(-1, max(primes_list) + 1))
 def test_is_prime(n: int) -> None:
     assert is_prime(n) == (n in primes_list)
+    assert is_prime(n, [2, 3, 5]) == (n in primes_list)
 
 
 @pytest.mark.parametrize("n", range(-100, 2))
