@@ -1,11 +1,9 @@
 from itertools import count
 
-from ..library.combinatorics.partitions import Partitions
+from ..library.combinatorics.partitions import partitions
 
 
 def solve(divisor: int=1_000_000) -> int:
-    partitions = Partitions()
-
-    for n in count(2):
+    for n in count(1):
         if partitions(n) % divisor == 0:
             return n

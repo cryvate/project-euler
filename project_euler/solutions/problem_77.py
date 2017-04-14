@@ -15,5 +15,5 @@ def solve(bound: int=5_000) -> int:
         if is_prime(n):
             partitions_class.numbers.append(n)
 
-        if partitions_class(n) > bound:
+        if partitions_class[n] > bound:
             return n
