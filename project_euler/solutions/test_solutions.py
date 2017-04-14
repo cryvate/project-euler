@@ -43,7 +43,7 @@ def test_problems(problem_number: int) -> str:
             'spent': spent
         }
 
-        spec = '{:6.4f}'
+        spec = '{:4.2f}'
 
         if spent > 60:
             if problem_number in slow_problems:
@@ -59,11 +59,10 @@ def test_problems(problem_number: int) -> str:
                         f' which is less than the {slower_time}s it is allowed'
                         f' to take, but more than 60s',
                         UserWarning)
-
-        elif spent > 60:
-            raise OneMinuteRuleViolation(
-                f'Problem {problem_number} took {spec.format(spent)}s, '
-                f'which is more than a minute!', **kwargs)
+            else:
+                raise OneMinuteRuleViolation(
+                    f'Problem {problem_number} took {spec.format(spent)}s, '
+                    f'which is more than a minute!', **kwargs)
 
         reference_answer = parameters['answer_b64'].decode()
 

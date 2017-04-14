@@ -66,7 +66,7 @@ if __name__ == '__main__':
 
     problem_number = arguments['<problem_number>']
 
-    spec = '{:6.4f}'
+    spec = '{:4.2f}'
 
     try:
         result, spent = test_problems(problem_number)
