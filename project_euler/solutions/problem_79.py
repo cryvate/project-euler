@@ -19,7 +19,6 @@ def solve(file_path: str= 'problem_79_keylog.txt', relative: bool=True) -> str:
     alphabet = sorted(alphabet_set)
 
     for size in count(len(alphabet)):
-        print(f'trying size={size}')
         for combination in combinations_with_replacement(alphabet, size):
             if set(combination) != alphabet_set:
                 continue
