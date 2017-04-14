@@ -48,6 +48,8 @@ def create_polynomial_sequence(coefficients: List[int]) -> \
 triangle_sequence = create_polynomial_sequence([1, 1])
 square_sequence = create_polynomial_sequence([1, 2])
 pentagonal_sequence = create_polynomial_sequence([1, 3])
+negative_pentagonal_sequence = create_polynomial_sequence([2, 3])
+
 hexagonal_sequence = create_polynomial_sequence([1, 4])
 heptagonal_sequence = create_polynomial_sequence([1, 5])
 octagonal_sequence = create_polynomial_sequence([1, 6])
