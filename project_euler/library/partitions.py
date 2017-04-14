@@ -15,8 +15,6 @@ class Partitions:
         self._cache = {}
 
     def __call__(self, n: int, max_index: int=None) -> int:
-        global print
-
         if self.numbers is None:
             numbers = range(1, n + 1)
         else:
@@ -47,8 +45,6 @@ class Partitions:
                 if n - pos < 0:
                     break
 
-                print(n, pos, neg, sign)
-
                 accumulate += sign * self(n - pos)
 
                 if n - neg < 0:
@@ -60,11 +56,8 @@ class Partitions:
         else:
             for i, value in enumerate(numbers[:max_index]):
                 for k in range(1, n // value + 1):
-                    print(n, value, k, i)
                     accumulate += self(n - value * k, i)
 
         self._cache[arguments] = accumulate
-
-        print(f'arguments={arguments} gives {accumulate}')
 
         return self._cache[arguments]
