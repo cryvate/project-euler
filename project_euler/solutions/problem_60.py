@@ -1,104 +1,137 @@
+from typing import List, Optional, Tuple
+
+from ..library.base import list_to_number, number_to_list
 from ..library.number_theory.primes import prime_sieve, is_prime
 
-from collections import OrderedDict
-from typing import List, Tuple, Dict
+import numpy as np
+
+Ntuples = Optional[List[List[int]]]
+Pairs = Optional[List[List[bool]]]
+Singles = List[int]
+Representations = List[List[int]]
 
 
-def find_concatenatable_primes(ptuples: Dict[int, Dict[List[int], None]],
-                               pairs: Dict[int, Dict[int, None]],
-                               single: List[int]) -> \
-        Tuple[Dict[int, Dict[List[int], None]],
-              Dict[int, Dict[int, None]],
-              List[int]]:
-    ntuples = OrderedDict()
+def compactify(ntuples: Ntuples,
+               pairs: Pairs,
+               singles: Singles,
+               present: List[bool]) -> Tuple[Ntuples, Pairs, Singles]:
+    length = len(singles)
+    present_list = [i for i in range(length) if present[i]]
+    transform = np.cumsum(present) - 1
 
-    for p in ptuples:
-        for others in ptuples[p]:
+    singles = [singles[i] for i in present_list]
+    pairs = [[pairs[i][j] for i in present_list] for j in present_list]
 
-            max_others = max(others)
+    ntuples = [[transform[i] for i in ntuple] for ntuple in ntuples]
 
-            for q in single:
-                if q <= max_others:
+    return ntuples, pairs, singles
+
+
+def find_concatenatable_primes(ntuples: Ntuples,
+                               pairs: Pairs,
+                               singles: Singles) -> \
+        Tuple[Ntuples, Pairs, Singles, Representations]:
+    length = len(singles)
+
+    present = [False] * length
+    new_ntuples = []
+
+    if pairs is None:
+        pairs = [[False for j in range(length)] for i in range(length)]
+        for i in range(1, length):
+            p = singles[i]
+
+            if p == 2:
+                continue
+
+            p_3 = p % 3
+            pr = number_to_list(p)
+
+            for j in range(i + 1, length):
+                q = singles[j]
+                qr = number_to_list(q)
+
+                if ((q % 3) + p_3) % 3 == 0 or \
+                        not is_prime(list_to_number(pr + qr), singles) or \
+                        not is_prime(list_to_number(qr + pr), singles):
                     continue
 
-                if (q, ) not in pairs[p]:
-                    continue
+                new_ntuples.append([i, j])
+                pairs[i][j] = True
+                pairs[j][i] = True
+                present[i] = True
+                present[j] = True
 
-                for r in others:
-                    if pairs.get(r, None) is None or (q, ) not in pairs[r]:
-                        break
-                else:
-                    if ntuples.get(p, None) is None:
-                        ntuples[p] = OrderedDict.fromkeys([others + (q, )])
-                    else:
-                        ntuples[p][others + (q, )] = None
+        representations = [[singles[i] for i in ntuple] for ntuple in
+                           new_ntuples]
+        assert [3, 109] in representations
+    else:
+        for ntuple in ntuples:
+            max_index = ntuple[-1]
 
-    primes_involved = []
+            for valid, j in [(all(pairs[i][j] for i in ntuple), j)
+                             for j in range(max_index + 1, length)]:
+                if valid:
+                    new_ntuples.append(ntuple + [j])
 
-    for p in ntuples:
-        primes_involved.append(p)
-        for others in ntuples[p]:
-            primes_involved += others
+                    present[j] = True
+                    for i in ntuple:
+                        present[i] = True
 
-    single = sorted(set(primes_involved))
+    old_representations = [[singles[i] for i in ntuple] for ntuple in
+                           new_ntuples]
 
-    return ntuples, pairs, single
+    new_ntuples, pairs, singles = \
+        compactify(new_ntuples, pairs, singles, present)
+
+    representations = [[singles[i] for i in ntuple] for ntuple in new_ntuples]
+
+    assert old_representations == representations
+
+    return new_ntuples, pairs, singles, representations
 
 
 def solve(size: int=5) -> int:
     up_to = 10_000
 
-    primes = [int(p) for p in prime_sieve(up_to)]
-    pairs_up_to = up_to
+    ntuples = None
+    pairs = None
+    singles = prime_sieve(up_to)
+    sums = singles
+    index = 0
 
-    pairs = OrderedDict()
+    print(f'using {len(singles)} primes.')
 
-    def local_is_prime(n: int):
-        if n > up_to:
-            return is_prime(n, primes)
-        return n in primes
-
-    for i, p in enumerate(primes):
-        if p > pairs_up_to:
-            break
-        for q in primes[i:]:
-            if q > pairs_up_to:
-                break
-
-            if local_is_prime(int(str(p) + str(q))) and \
-                    local_is_prime(int(str(q) + str(p))):
-                if pairs.get(p, None) is None:
-                    pairs[p] = OrderedDict.fromkeys([(q, )])
-                else:
-                    pairs[p][(q, )] = None
-
-    some_primes = set()
-    n_pairs = []
-    for p in pairs:
-        some_primes.add(p)
-        for q in pairs[p]:
-            some_primes.add(q[0])
-            n_pairs.append((p, q[0]))
-
-    singles = sorted(set(some_primes))
-
-    i = 2
-    ntuples = pairs
-    pairs = pairs
-
-    for i in range(3, size + 1):
-        ntuples, pairs, singles = \
+    for i in range(2, size + 1):
+        ntuples, pairs, singles, representations = \
             find_concatenatable_primes(ntuples, pairs, singles)
-        sums = []
-        for p in ntuples:
-            for others in ntuples[p]:
-                sums.append((sum(others) + p, (p, ) + others))
 
-        sums = sorted(sums)
+        print(f'At size={i}, get {len(ntuples)} {i}-tuples')
 
-    if sums[0][0] < up_to:
+        if i == 2:
+            assert [3, 7] in representations
+            assert [7, 109] in representations
+            assert [3, 109] in representations
+            assert [109, 673] in representations
+            assert [7, 673] in representations
+            assert [3, 673] in representations
+
+        if i == 3:
+            assert [3, 7, 109] in representations
+            assert [7, 109, 673] in representations
+
+        sums = [sum(representation) for representation in representations]
+
+        try:
+            index = sums.index(min(sums))
+        except ValueError as e:
+            raise ValueError(f'No solution for stage {i}, try a different '
+                             f'value for up_to (currently {up_to}).') from e
+        print(f'for size {i} we get best {representations[index]}')
+
+    if sums[index] < up_to:
         print('This answer is guaranteed to be correct.')
     else:
         print('This answer is *NOT* guaranteed to be correct.')
 
-    return sums[0][0]
+    return sums[index]

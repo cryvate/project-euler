@@ -37,7 +37,7 @@ def solve() -> int:
                 for index in mask:
                     masked_representation[-index] = digit
 
-                number = list_to_number(reversed(masked_representation))
+                number = list_to_number(masked_representation)
 
                 if is_prime(number, primes):
                     counter += 1
