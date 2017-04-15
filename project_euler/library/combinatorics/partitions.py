@@ -1,7 +1,5 @@
 from typing import List, Iterable
 
-from ..sequences import pentagonal_sequence, negative_pentagonal_sequence
-
 
 def partitions(n, cache: List=[1], length: List[int]=[1]) -> int:
     # needs to be called in order, starting at 1
@@ -19,7 +17,11 @@ def partitions(n, cache: List=[1], length: List[int]=[1]) -> int:
 
     sign = -1
 
-    for pos, neg in zip(pentagonal_sequence(), negative_pentagonal_sequence()):
+    # could use (negative) pentagonal sequence, but is slower.
+    for i in range(2 * n):
+        pos = (i * (3 * i - 1)) // 2
+        neg = (i * (3 * i + 1)) // 2
+
         if pos == 0:
             continue
 
