@@ -1,12 +1,12 @@
 from bisect import bisect_right
 from itertools import chain, count
 
-from typing import Generator, Sequence, Tuple
+from typing import Generator, List, Sequence, Tuple
 
 from ..sqrt import fsqrt
 
 
-def is_prime(n: int, sieve: Sequence[int]=None) -> bool:
+def is_prime(n: int, sieve: List[int]=None) -> bool:
     if n <= 1:
         return False
 
