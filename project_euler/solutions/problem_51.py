@@ -1,7 +1,7 @@
 from collections import Counter
 from itertools import combinations
 
-from ..library.number_theory.primes import prime_sieve
+from ..library.number_theory.primes import is_prime, prime_sieve
 from ..library.base import list_to_number, number_to_list
 
 
@@ -39,7 +39,7 @@ def solve() -> int:
 
                 number = list_to_number(reversed(masked_representation))
 
-                if number in primes:
+                if is_prime(number, primes):
                     counter += 1
 
             if counter == 8:
