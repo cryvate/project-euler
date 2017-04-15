@@ -124,3 +124,6 @@ answer_b64: !!binary |
     MTMyMg==
 strategy: >
     Use fraction arithmetic to find continued fraction expansion.
+
+    Use optimization that we know for values around square what their
+    expansion looks like

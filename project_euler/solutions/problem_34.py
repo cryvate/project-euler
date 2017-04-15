@@ -1,8 +1,10 @@
 from math import factorial
 
+from ..library.base import number_to_list
 
-def solve() -> int:
-    factorials = [factorial(digit) for digit in range(10)]
+
+def solve(base: int=10) -> int:
+    factorials = [factorial(digit) for digit in range(base)]
 
     bound = 0
     maximum = 0
@@ -10,14 +12,14 @@ def solve() -> int:
 
     while maximum >= necessary:
         maximum += factorials[-1]
-        necessary = 9 * necessary + 9
+        necessary = (base - 1) * necessary + (base - 1)
 
         bound += 1
 
     counter = 0
 
     for i in range(3, maximum + 1):
-        if sum(factorials[int(digit)] for digit in str(i)) == i:
+        if sum(factorials[digit] for digit in number_to_list(i)) == i:
             counter += i
 
     return counter
