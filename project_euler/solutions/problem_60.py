@@ -1,6 +1,6 @@
-from typing import Callable, List, Optional, Tuple
+from typing import List, Optional, Tuple
 
-from ..library.base import number_to_list, list_to_number
+from ..library.base import list_to_number, number_to_list
 from ..library.number_theory.primes import prime_sieve, is_prime
 
 import numpy as np
@@ -17,7 +17,7 @@ def compactify(ntuples: Ntuples,
                present: List[bool]) -> Tuple[Ntuples, Pairs, Singles]:
     length = len(singles)
     present_list = [i for i in range(length) if present[i]]
-    transform = np.cumsum(present) -1
+    transform = np.cumsum(present) - 1
 
     singles = [singles[i] for i in present_list]
     pairs = [[pairs[i][j] for i in present_list] for j in present_list]
@@ -45,22 +45,15 @@ def find_concatenatable_primes(ntuples: Ntuples,
                 continue
 
             p_3 = p % 3
-            rep_p = number_to_list(p)
+            pr = number_to_list(p)
 
             for j in range(i + 1, length):
                 q = singles[j]
-                rep_q = number_to_list(q)
+                qr = number_to_list(q)
 
-                if ((q % 3) + p_3) % 3 == 0:
-                    continue
-
-                if not is_prime(int(str(p) + str(q)), singles):
-                    continue
-
-                if not is_prime(int(str(q) + str(p)), singles):
-                    continue
-                        #not is_prime(list_to_number(rep_p + rep_q), singles) or \
-                        #not is_prime(list_to_number(rep_q + rep_p), singles):
+                if ((q % 3) + p_3) % 3 == 0 or \
+                        not is_prime(list_to_number(pr + qr), singles) or \
+                        not is_prime(list_to_number(qr + pr), singles):
                     continue
 
                 new_ntuples.append([i, j])
@@ -76,7 +69,8 @@ def find_concatenatable_primes(ntuples: Ntuples,
         for ntuple in ntuples:
             max_index = ntuple[-1]
 
-            for valid, j in [(all(pairs[i][j] for i in ntuple), j) for j in range(max_index + 1, length)]:
+            for valid, j in [(all(pairs[i][j] for i in ntuple), j)
+                             for j in range(max_index + 1, length)]:
                 if valid:
                     new_ntuples.append(ntuple + [j])
 
@@ -87,7 +81,8 @@ def find_concatenatable_primes(ntuples: Ntuples,
     old_representations = [[singles[i] for i in ntuple] for ntuple in
                            new_ntuples]
 
-    new_ntuples, pairs, singles = compactify(new_ntuples, pairs, singles, present)
+    new_ntuples, pairs, singles = \
+        compactify(new_ntuples, pairs, singles, present)
 
     representations = [[singles[i] for i in ntuple] for ntuple in new_ntuples]
 
