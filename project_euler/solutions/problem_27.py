@@ -11,11 +11,11 @@ def consecutive(a: int, b: int, sieve) -> int:
             return n
 
 
-def solve(a_bound: int=1_000, b_bound: int=1_000, sieve_bound: int=10_00) -> int:
+def solve(a_bound: int=1_000, b_bound: int=1_000) -> int:
     maximum = 0
     result = 0
 
-    primes = prime_sieve(sieve_bound)
+    primes = prime_sieve(b_bound)
 
     for a in range(-a_bound, a_bound + 1):
         for b in primes:
