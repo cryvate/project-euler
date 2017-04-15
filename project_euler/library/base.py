@@ -14,7 +14,7 @@ def number_to_list(number: int, base: int = 10) -> List[int]:
 
         number //= base
 
-    return digits
+    return list(reversed(digits))
 
 
 def list_to_number(representation: List[int], base: int = 10) -> int:
