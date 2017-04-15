@@ -45,6 +45,14 @@ def test_problems(problem_number: int) -> str:
 
         spec = '{:4.2f}'
 
+        reference_answer = parameters['answer_b64'].decode()
+
+        if answer != reference_answer:
+            raise AnswerVerificationFailed(
+                f'In problem {problem_number} the calculated answer is '
+                f'{answer} ({spec.format(spent)}s), the reference answer is '
+                f'{reference_answer}.', **kwargs)
+
         if spent > 60:
             if problem_number in slow_problems:
                 slower_time = slow_problems[problem_number]
@@ -63,13 +71,5 @@ def test_problems(problem_number: int) -> str:
                 raise OneMinuteRuleViolation(
                     f'Problem {problem_number} took {spec.format(spent)}s, '
                     f'which is more than a minute!', **kwargs)
-
-        reference_answer = parameters['answer_b64'].decode()
-
-        if answer != reference_answer:
-            raise AnswerVerificationFailed(
-                f'In problem {problem_number} the calculated answer is '
-                f'{answer} ({spec.format(spent)}s), the reference answer is '
-                f'{reference_answer}.', **kwargs)
 
     return answer, spent
