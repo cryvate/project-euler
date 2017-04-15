@@ -1,7 +1,7 @@
 from typing import List
 
 
-def number_to_list(number: int, base: int = 10) -> List[int]:
+def number_to_list(number: int, base: int=10) -> List[int]:
     if number < 0:
         raise ValueError(f'Cannot convert {number} to list, must be positive.')
     if base <= 0:
