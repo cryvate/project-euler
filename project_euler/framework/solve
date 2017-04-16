@@ -1,0 +1,3 @@
+#!/bin/bash
+
+python -m project_euler.framework.solve "$@"
