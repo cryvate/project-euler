@@ -4,6 +4,9 @@ from itertools import chain, cycle
 
 from typing import Generator, Iterable, List, Tuple
 
+from .gcd import gcd
+from ..sqrt import fsqrt
+
 
 def convergent_sequence(generator: Iterable[int]) -> \
         Generator[Fraction, None, None]:
@@ -18,24 +21,27 @@ def convergent_sequence(generator: Iterable[int]) -> \
 
 
 def continued_fraction_sqrt(n: int) -> Tuple[List[int], List[int]]:
-    remainders = []
-    continued_fraction = []
-    remainder = (Fraction(1), Fraction(0))  # remainder is sqrt(n) + 0.
-
     sqrt_n = sqrt(n)
+    remainders = []
+    remainder = (0, 1)
+    # remainder is an + (sqrt(n) - p) / q and these are initial.
+    continued_fraction = []
 
     while remainder not in remainders:
         remainders.append(remainder)
+        p, q = remainder
 
-        a = int(remainder[0] * sqrt_n + remainder[1])
+        q = (n - (p * p)) // q
+        a = int((sqrt_n + p) / q)
+        p = a * q - p
+
         continued_fraction.append(a)
 
-        norm = (remainder[1] - a) ** 2 - remainder[0] ** 2 * n
-        remainder = (-remainder[0] / norm, (remainder[1] - a) / norm)
+        remainder = (p, q)
 
     index = remainders.index(remainder)
 
-    return continued_fraction[:index], continued_fraction[index:]
+    return continued_fraction[1:index], continued_fraction[index:]
 
 
 def convergents_sqrt(n: int) -> Generator[Fraction, None, None]:
