@@ -1,11 +1,9 @@
 from fractions import Fraction
-from math import sqrt
 from itertools import chain, cycle
 
 from typing import Generator, Iterable, List, Tuple
 
-from .gcd import gcd
-from ..sqrt import fsqrt
+from ..sqrt import sqrt
 
 
 def convergent_sequence(generator: Iterable[int]) -> \
