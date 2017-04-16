@@ -3,12 +3,21 @@ from itertools import chain, count
 
 from typing import Generator, List, Sequence, Tuple
 
-from ..sqrt import fsqrt
+from ..sqrt import fast_fsqrt as fsqrt
+
+SMALL_PRIMES = [2, 3, 5, 7, 11]
 
 
 def is_prime(n: int, sieve: List[int]=None) -> bool:
     if n <= 1:
         return False
+
+    for p in SMALL_PRIMES:
+        if n == p:
+            return True
+        else:
+            if n % p == 0:
+                return False
 
     if sieve is None:
         for factor in range(2, fsqrt(n) + 1):
@@ -19,7 +28,10 @@ def is_prime(n: int, sieve: List[int]=None) -> bool:
         if not index or sieve[index - 1] != n:
             return False
     elif n <= sieve[-1] ** 2:
+        fsqrt_n = fsqrt(n)
         for factor in sieve:
+            if factor > fsqrt_n:
+                break
             if n % factor == 0:
                 return False
     else:

@@ -1,3 +1,6 @@
+from math import ceil, sqrt
+
+
 def fsqrt(n: int) -> int:
     xs = [-2, -2, n]
 
@@ -16,10 +19,18 @@ def fsqrt(n: int) -> int:
             return xs[0]
 
 
+def fast_fsqrt(n: int) -> int:
+    return int(sqrt(n))
+
+
 def csqrt(n: int) -> int:
     approx = fsqrt(n)
 
     return approx if approx * approx == n else approx + 1
+
+
+def fast_csqrt(n: int) -> int:
+    return ceil(sqrt(n))
 
 
 def is_square(n: int) -> bool:
