@@ -131,6 +131,7 @@ def solve(problem_number: int) -> str:
 
     return problem_module.solve()
 
+
 if __name__ == '__main__':
     arguments = docopt(__doc__)
 
