@@ -5,19 +5,10 @@ from typing import Generator, List, Sequence, Tuple
 
 from ..sqrt import fast_fsqrt as fsqrt
 
-SMALL_PRIMES = [2, 3, 5, 7, 11]
-
 
 def is_prime(n: int, sieve: List[int]=None) -> bool:
     if n <= 1:
         return False
-
-    for p in SMALL_PRIMES:
-        if n == p:
-            return True
-        else:
-            if n % p == 0:
-                return False
 
     if sieve is None:
         for factor in range(2, fsqrt(n) + 1):
