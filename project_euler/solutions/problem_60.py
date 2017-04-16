@@ -51,10 +51,19 @@ def find_concatenatable_primes(ntuples: Ntuples,
                 q = singles[j]
                 qr = number_to_list(q)
 
-                if ((q % 3) + p_3) % 3 == 0 or \
+                if ((q % 3) + p_3) % 3 == 0:
+                    continue
+
+                if not is_prime(list_to_number(pr + qr), primes):
+                    continue
+
+                if not is_prime(list_to_number(qr + pr), primes):
+                    continue
+
+                '''if ((q % 3) + p_3) % 3 == 0 or \
                         not is_prime(list_to_number(pr + qr), singles) or \
                         not is_prime(list_to_number(qr + pr), singles):
-                    continue
+                    continue'''
 
                 new_ntuples.append([i, j])
                 pairs[i][j] = True
@@ -69,8 +78,20 @@ def find_concatenatable_primes(ntuples: Ntuples,
         for ntuple in ntuples:
             max_index = ntuple[-1]
 
-            for valid, j in [(all(pairs[i][j] for i in ntuple), j)
-                             for j in range(max_index + 1, length)]:
+            for j in range(max_index + 1, length):
+                for i in ntuple:
+                    if not pairs[j][i]:
+                        break
+                else:
+                    new_ntuples.append(ntuple + [j])
+                    present[j] = True
+                    for i in ntuple:
+                        present[i] = True
+
+            continue
+
+            for valid, j in ((all(pairs[i][j] for i in ntuple), j)
+                             for j in range(max_index + 1, length)):
                 if valid:
                     new_ntuples.append(ntuple + [j])
 
@@ -91,12 +112,17 @@ def find_concatenatable_primes(ntuples: Ntuples,
     return new_ntuples, pairs, singles, representations
 
 
+primes = []
+
+
 def solve(size: int=5) -> int:
     up_to = 10_000
+    global primes
+    primes = prime_sieve(10_000)
+    singles = [p for p in primes if p < up_to]
 
     ntuples = None
     pairs = None
-    singles = prime_sieve(up_to)
     sums = singles
     index = 0
 
