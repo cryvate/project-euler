@@ -1,8 +1,7 @@
 import pytest
 
+from project_euler.framework.solve import solve_problem
 from .problems import numbers as problems
-
-from .solve import solve_problem
 
 
 test_problem = \
