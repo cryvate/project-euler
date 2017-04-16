@@ -1,8 +1,7 @@
-from collections import Counter
-from itertools import combinations_with_replacement
 from math import factorial
 
-from ..library.base import number_to_list, list_to_number
+from ..library.base import number_to_list, list_to_number, \
+    count_permutations, range_combinations_digits
 
 
 def solve(digits: int=6, terms=60, base: int=10) -> int:
@@ -13,8 +12,9 @@ def solve(digits: int=6, terms=60, base: int=10) -> int:
 
     counter = 0
 
-    for level in range(1, digits + 1):
-        for combination in combinations_with_replacement(range(1, 10), level):
+    for combination in range_combinations_digits(1, digits + 1,
+                                                 zero_included=False,
+                                                 base=base):
             concatenated = list_to_number(combination)
 
             n = concatenated
@@ -30,18 +30,6 @@ def solve(digits: int=6, terms=60, base: int=10) -> int:
                     break
             else:
                 if steps == terms:
-                    contribution = factorial(level)
-
-                    digit_counter = Counter(combination)
-
-                    for value in digit_counter.values():
-                        contribution //= factorial(value)
-
-                    if 1 in digit_counter:
-                        ones = digit_counter[1]
-                        contribution += (contribution // level) * \
-                                        (level - ones)
-
-                    counter += contribution
+                    counter += count_permutations(combination, True)
 
     return counter

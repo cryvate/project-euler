@@ -1,6 +1,7 @@
 from math import factorial
 
-from ..library.base import number_to_list
+from ..library.base import count_combinations_digits, list_to_number, \
+    number_to_list
 
 
 def solve(base: int=10) -> int:
@@ -18,8 +19,13 @@ def solve(base: int=10) -> int:
 
     counter = 0
 
-    for i in range(3, maximum + 1):
-        if sum(factorials[digit] for digit in number_to_list(i)) == i:
-            counter += i
+    for combination in count_combinations_digits(2,  # ignore single numbers
+                                                 base=base,
+                                                 zero_included=True):
+        if list_to_number(sorted(combination)) >= maximum * 10:
+            return counter
 
-    return counter
+        attempt = sum(factorials[digit] for digit in combination)
+
+        if sorted(number_to_list(attempt)) == list(combination):
+            counter += attempt

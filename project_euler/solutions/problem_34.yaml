@@ -8,5 +8,5 @@ description: >
 answer_b64: !!binary |
     NDA3MzA=
 strategy: >
-    Simple brute-force. Can also work backwards by only considering
-    combinations instead of permutations of numbers to reduce search space.
+    Simple brute-force is possible, but using combinations instead until the
+    maximum possible works much, much better.
