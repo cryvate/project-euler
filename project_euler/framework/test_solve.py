@@ -1,9 +1,18 @@
 from time import sleep
 
+from typing import Callable
+
 import pytest
 
 from .solve import solve_problem, AnswerVerificationFailed, \
     OneMinuteRuleViolation
+
+
+def raise_exception(exception: BaseException) -> Callable[[], None]:
+    def function():
+        raise exception()
+
+    return function
 
 
 INVALID_KINDS = [
@@ -32,6 +41,11 @@ INVALID_KINDS = [
         lambda: sleep(0.03) or 233168,
         OneMinuteRuleViolation
     ),
+    (
+        '1',
+        raise_exception(ValueError),
+        ValueError
+    )
 ]
 
 
