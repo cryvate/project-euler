@@ -6,6 +6,6 @@ description: >
 
     Find the minimal path sum, in matrix.txt, a 31K text file containing a 80 by 80 matrix, from the top left to the bottom right by only moving right and down.
 answer_b64: !!binary |
-    NDA4ODY=
+    NDI3MzM3
 strategy: >
-    Use convergents, could use direct method of using digits instead.
+    Can simply go backwards, similar to previous triangle question.
