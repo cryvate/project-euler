@@ -1,6 +1,6 @@
-from os.path import join, split
-
 from typing import List
+
+from ..framework.load_file import load_file
 
 
 def xor_printable(encrypted: List[int]) -> List[str]:
@@ -22,15 +22,9 @@ def xor_printable(encrypted: List[int]) -> List[str]:
     return allowable_secrets
 
 
-def solve(file_path: str='problem_59_cipher.txt',
-          relative: bool=True,
+def solve(name: str='cipher.txt', relative: bool=True,
           codeword_length: int=3) -> int:
-    if relative:
-        full_path = join(split(__file__)[0], file_path)
-    else:
-        full_path = file_path
-    with open(full_path, 'r') as encrypted_file:
-        encrypted_raw = encrypted_file.read()
+    encrypted_raw = load_file(59, name, relative)
 
     encrypted = [int(character) for character in encrypted_raw.split(',')]
 

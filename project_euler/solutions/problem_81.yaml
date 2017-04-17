@@ -1,0 +1,11 @@
+title: Square Root Digital Expansion
+description: >
+    In the 5 by 5 matrix below, the minimal path sum from the top left to the bottom right, by only moving to the right and down, is indicated in bold red and is equal to 2427.
+
+    (131673234103182019634296515063080374642211153769949712195680573252437331) FIXME: sort this out
+
+    Find the minimal path sum, in matrix.txt, a 31K text file containing a 80 by 80 matrix, from the top left to the bottom right by only moving right and down.
+answer_b64: !!binary |
+    NDA4ODY=
+strategy: >
+    Use convergents, could use direct method of using digits instead.
