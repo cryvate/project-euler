@@ -8,4 +8,4 @@ description: >
 answer_b64: !!binary |
     NDI3MzM3
 strategy: >
-    Use Dijkstra.
+    Use simplified Dijkstra.

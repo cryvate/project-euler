@@ -1,39 +1,74 @@
+from typing import Any, List, Tuple
+
 from ..framework.load_file import load_file
+from ..library.optimization.dijkstra import source_target_dijkstra_cost
+
+Coordinate = Tuple[int, int]
+Edge = Tuple[Coordinate, Coordinate, Any]
+Step = Tuple[Edge, Edge, Any]
 
 
-def solve(name: str='matrix.txt', relative: bool=True):
-    matrix_raw = load_file(81, name, relative)
+def string_to_matrix(matrix_string: str) -> List[List[Any]]:
+    return [[int(n) for n in line.split(',')]
+            for line in matrix_string.split('\n') if line]
 
-    matrix = [[int(n) for n in line.split(',')]
-              for line in matrix_raw.split('\n') if line]
 
-    shadow_matrix = [[0 for _ in line] for line in matrix]
-    shadow_matrix[0][0] = matrix[0][0]
+def matrix_steps_to_vertices_edges(matrix: List[List[Any]],
+                                   steps: List[Step],
+                                   sources: List[Coordinate],
+                                   drains: List[Coordinate]) -> \
+    Tuple[List[Coordinate], Edge]:
+    rows = len(matrix)
+    columns = len(matrix[0])
+
+    source = (-1, 0)
+    drain = (0, -1)
+
+    vertices = [source] + \
+               [(i, j) for i in range(rows) for j in range(columns)] + \
+               [drain]
+
+    edges = []
+
+    for s in sources:
+        edges.append((source, s, 0))
+
+    for d in drains:
+        edges.append((d, drain, matrix[d[0]][d[1]]))
+
+    for i in range(rows):
+        for j in range(columns):
+            cost = matrix[i][j]
+
+            for step_x, step_y in steps:
+                x = i + step_x
+                y = j + step_y
+
+                if 0 <= x < rows and 0 <= y < columns:
+                    edges.append(((i, j), (x, y), cost))
+
+    return vertices, edges
+
+
+def solve(name: str='matrix.txt',
+          relative: bool=True,
+          steps: List[Step]=((0, 1), (1, 0)),
+          sources: List[Coordinate]=((0, 0), ),
+          drains: List[Coordinate]=((-1, -1), )):
+    matrix_string = load_file('81_82_83', name, relative)
+    matrix = string_to_matrix(matrix_string)
 
     rows = len(matrix)
     columns = len(matrix[0])
 
-    for i in range(rows + columns - 1):
-        for j in range(i + 1):
-            x = j
-            y = i - j
+    sources = [(i % rows, j % columns) for i, j in sources]
+    drains = [(i % rows, j % columns) for i, j in drains]
 
-            if x >= rows or y < 0:  # will only get worse: break
-                break
+    vertices, edges = matrix_steps_to_vertices_edges(matrix,
+                                                     steps,
+                                                     sources,
+                                                     drains)
 
-            if x < 0 or y >= columns:  # will fix itself: continue
-                continue
+    result = source_target_dijkstra_cost(vertices, edges, (-1, 0), (0, -1))
 
-            shadow_matrix[x][y] = matrix[x][y]
-
-            if x == 0 and y == 0:
-                pass
-            elif x == 0:
-                shadow_matrix[x][y] += shadow_matrix[x][y - 1]
-            elif y == 0:
-                shadow_matrix[x][y] += shadow_matrix[x - 1][y]
-            else:
-                shadow_matrix[x][y] += min(shadow_matrix[x][y - 1],
-                                           shadow_matrix[x - 1][y])
-
-    return shadow_matrix[-1][-1]
+    return result

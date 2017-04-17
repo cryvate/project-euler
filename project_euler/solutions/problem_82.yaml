@@ -1,4 +1,4 @@
-title: Square Root Digital Expansion
+title: "Path Sum: Three Ways"
 description: >
     NOTE: This problem is a more challenging version of Problem 81.
 
@@ -10,4 +10,4 @@ description: >
 answer_b64: !!binary |
     MjYwMzI0
 strategy: >
-    Use Dijkstra
+    Use Dijkstra.
