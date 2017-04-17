@@ -2,8 +2,6 @@ from typing import List, Iterable
 
 
 def partitions(n, cache: List=[1], length: List[int]=[1]) -> int:
-    # needs to be called in order, starting at 1
-
     if n < length[0]:
         return cache[n]
 
