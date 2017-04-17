@@ -51,9 +51,6 @@ def source_target_dijkstra_cost(vertices: Iterable[Vertex],
             except KeyError:
                 pass  # vertex is already done
 
-
-
-    return costs
-
-
+# to add: if target isn't reached, make sure to throw exception (this is when
+# minimal cost is not set as PyCharm suggests.
 # to add: full, to specific target, including target, negative (Floyd-Warshall)
