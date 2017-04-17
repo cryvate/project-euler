@@ -1,15 +1,10 @@
-from os.path import join, split
-
 from itertools import chain, count, combinations_with_replacement, permutations
 
+from ..framework.load_file import load_file
 
-def solve(file_path: str= 'problem_79_keylog.txt', relative: bool=True) -> str:
-    if relative:
-        full_path = join(split(__file__)[0], file_path)
-    else:
-        full_path = file_path
-    with open(full_path, 'r') as constraints_file:
-        constraints_raw = constraints_file.read()
+
+def solve(name: str= 'keylog.txt', relative: bool=True) -> str:
+    constraints_raw = load_file(79, name, relative)
 
     constraints = [list(constraint)
                    for constraint in constraints_raw.split('\n')
