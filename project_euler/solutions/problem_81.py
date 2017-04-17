@@ -17,7 +17,7 @@ def matrix_steps_to_vertices_edges(matrix: List[List[Any]],
                                    steps: List[Step],
                                    sources: List[Coordinate],
                                    drains: List[Coordinate]) -> \
-    Tuple[List[Coordinate], Edge]:
+        Tuple[List[Coordinate], Edge]:
     rows = len(matrix)
     columns = len(matrix[0])
 

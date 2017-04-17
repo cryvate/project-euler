@@ -1,4 +1,4 @@
-from typing import Dict, Hashable, Iterable, Optional, Tuple, Union
+from typing import Dict, Hashable, Iterable, Tuple, Union
 
 Vertex = Hashable
 Edge = Union[Tuple[Vertex, Vertex, float], Tuple[Vertex, Vertex]]
