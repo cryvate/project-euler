@@ -19,6 +19,7 @@ import warnings
 from typing import Any, Callable, Tuple
 
 from docopt import docopt
+from termcolor import colored  # noqa: F401
 import yaml
 
 import project_euler.solutions  # noqa: F401
@@ -30,6 +31,12 @@ MINUTE_RULE = 60
 SLOW = 10
 
 
+SOLVE_MSG = ('{colored("[PE-" + str(problem_number) +"]", status_colour)} '
+             '{colored(str(answer), "green") if answer_correct else colored(str(answer) + " != " + str(reference_answer), "red")} '  # noqa: E501
+             '{colored("[" + spec.format(spent) + "s" + "!" * (minute_violated + slow_violated) + "]", "green" if spent <= slow else ("yellow" if spent <= minute_rule else "red"))}')  # noqa: E501
+SOLVE_MSG_E = ''
+
+
 class SolveException(Exception):
     pass
 
@@ -39,17 +46,7 @@ class ProblemMalformed(SolveException):
 
 
 class SolutionWrong(SolveException):
-    def __init__(self,
-                 *args,
-                 answer: str,
-                 reference_answer: str,
-                 spent: float,
-                 **kwargs):
-        self.answer = answer
-        self.reference_answer = reference_answer
-        self.spent = spent
-
-        super().__init__(*args, **kwargs)
+    pass
 
 
 class AnswerVerificationFailed(SolutionWrong):
@@ -86,38 +83,56 @@ def solve_problem(problem_number: int,
                                        package='project_euler.solutions')
         solve = problem_module.solve
 
+    reference_answer = parameters['answer_b64'].decode()
+
     start = time.time()
 
-    answer = str(solve())
-    # often more natural to return int
+    try:
+        answer = str(solve())
+        # often more natural to return int
+    except Exception as e:
+        answer = str(type(e))[8:-2] + "_occured"
+
+        spent = time.time() - start
+
+        answer_correct = answer == reference_answer
+        minute_violated = spent > minute_rule
+        slow_violated = spent > slow
+        status_colour_time = 'green' if slow_violated else (  # NOQA: F841
+            'yellow' if minute_violated else 'red')
+        status_colour = 'green' if answer_correct and not slow_violated else (  # noqa: F841,E501
+            'yellow' if answer_correct and not minute_violated else 'red')
+
+        print(eval('f' + repr(SOLVE_MSG)))
+
+        raise
 
     spent = time.time() - start
 
-    kwargs = {
-        'answer': answer,
-        'reference_answer': reference_answer,
-        'spent': spent
-    }
+    answer_correct = answer == reference_answer
+    minute_violated = spent > minute_rule
+    slow_violated = spent > slow
+    status_colour_time = 'green' if slow_violated else (  # NOQA: F841
+        'yellow' if minute_violated else 'red')
+    status_colour = 'green' if answer_correct and not slow_violated else (  # noqa: F841,E501
+        'yellow' if answer_correct and not minute_violated else 'red')
 
-    reference_answer = parameters['answer_b64'].decode()
+    print(eval('f' + repr(SOLVE_MSG)))
 
-    if answer != reference_answer:
+    if not answer_correct:
         raise AnswerVerificationFailed(
             f'In problem {problem_number} the calculated answer is '
             f'{answer} ({spec.format(spent)}s), the reference answer is '
-            f'{reference_answer}.', **kwargs)
+            f'{reference_answer}.')
 
-    print(f'Problem {problem_number} took {spec.format(spent)}s and the '
-          f'answer {answer} was correct.')
-
-    if spent > minute_rule:
+    if minute_violated:
         if problem_number in slow_problems:
             slower_time = slow_problems[problem_number]
             if spent > slower_time:
                 raise OneMinuteRuleViolation(
                     f'Problem {problem_number} took {spec.format(spent)}s,'
                     f' which is more than the {slower_time}s it is '
-                    f'allowed to take.', **kwargs)
+                    f'allowed to take.')
             else:
                 warnings.warn(
                     f'Problem {problem_number} took {spec.format(spent)}s,'
@@ -127,8 +142,8 @@ def solve_problem(problem_number: int,
         else:
             raise OneMinuteRuleViolation(
                 f'Problem {problem_number} took {spec.format(spent)}s, '
-                f'which is more than a minute!', **kwargs)
-    elif spent > slow:
+                f'which is more than a minute!')
+    elif slow_violated:
         warnings.warn(
                     f'Problem {problem_number} took {spec.format(spent)}s,'
                     f' which is more than {slow}s.', UserWarning)
@@ -141,4 +156,9 @@ if __name__ == '__main__':
 
     problem_number = arguments['<problem_number>']
 
-    solve_problem(problem_number)
+    try:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            solve_problem(problem_number)
+    except SolveException:
+        pass
