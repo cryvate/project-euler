@@ -1,17 +1,11 @@
-from os.path import join, split
-
 from itertools import takewhile
 
+from ..framework.load_file import load_file
 from ..library.sequences import triangle_sequence
 
 
-def solve(file_path: str= 'problem_42_words.txt', relative: bool=True) -> int:
-    if relative:
-        full_path = join(split(__file__)[0], file_path)
-    else:
-        full_path = file_path
-    with open(full_path, 'r') as words_file:
-        words_raw = words_file.read()
+def solve(name: str= 'words.txt', relative: bool=True) -> int:
+    words_raw = load_file(42, name, relative)
 
     words = words_raw.strip('"').split('","')
     value_words = [sum(ord(digit) - ord('A') + 1 for digit in word)
