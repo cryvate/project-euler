@@ -17,18 +17,18 @@ def solve(name: str='matrix.txt', relative: bool=True):
 
     shadow_matrix = [[0 for _ in line] for line in matrix]
 
-    for j in range(columns - 1, -1, -1):
+    for j in range(columns):
         cost = cumsum(matrix[j])
         for i in range(rows):
-            if j == columns - 1:
+            if j == 0:
                 shadow_matrix[j][i] = matrix[j][i]
             else:
                 possible = [cost[i] - cost[k] + matrix[j][k] +
-                            shadow_matrix[j + 1][k] for k in range(i)] + \
-                           [matrix[j][i] + shadow_matrix[j + 1][i]] + \
+                            shadow_matrix[j - 1][k] for k in range(i)] + \
+                           [matrix[j][i] + shadow_matrix[j - 1][i]] + \
                            [cost[k] - cost[i] + matrix[j][i] +
-                            shadow_matrix[j + 1][k]for k in range(i + 1, rows)]
+                            shadow_matrix[j - 1][k]for k in range(i + 1, rows)]
 
                 shadow_matrix[j][i] += min(possible)
 
-    return min(shadow_matrix[0])
+    return min(shadow_matrix[-1])
