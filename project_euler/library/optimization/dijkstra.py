@@ -20,32 +20,38 @@ def source_target_dijkstra_cost(vertices: Iterable[Vertex],
 
     done = {vertex: False for vertex in vertices}
 
-    def key_vertices(item: Tuple[Vertex, Optional[float]]) -> Tuple[bool, float]:
-        value = item[1]
+    while done:
+        minimal_cost = None
 
-        return value is None, value
-        # don't include vertex: they might not be sortable
-        # build in sort is guaranteed stable Python sort is stable
+        # own minimal method written, because built-in is slow
+        for vertex, cost in costs.items():
+            if cost is not None:
+                if minimal_cost is None or cost < minimal_cost:
+                    minimal_cost = cost
+                    minimal_vertex = vertex
 
-    while not all(done.values()):
-        vertex, cost = min(((vertex, cost) for vertex, cost in costs.items() if not done[vertex]), key=key_vertices)
+        vertex, cost = minimal_vertex, minimal_cost
 
         if vertex == target:
             return cost
 
-        done[vertex] = True
-
-        print(80 * 80 - sum(done.values()))
+        done.pop(vertex)
+        costs.pop(vertex)
 
         for step in edges_index[vertex]:
             new_vertex = step[0]
             step_cost = 1 if len(step) == 1 else step[1]
             new_cost = cost + step_cost
 
-            if costs[new_vertex] is None:
-                costs[new_vertex] = new_cost
-            else:
-                costs[new_vertex] = min(costs[new_vertex], new_cost)
+            try:
+                if costs[new_vertex] is None:
+                    costs[new_vertex] = new_cost
+                else:
+                    costs[new_vertex] = min(costs[new_vertex], new_cost)
+            except KeyError:
+                pass  # vertex is already done
+
+
 
     return costs
 

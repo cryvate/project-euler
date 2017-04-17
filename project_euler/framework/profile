@@ -1,0 +1,6 @@
+#!/bin/bash -e
+
+python -m cProfile -o test.prof solve.py "$@"
+snakeviz test.prof &&
+sleep 0.5
+rm test.prof
