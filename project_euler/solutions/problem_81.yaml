@@ -1,4 +1,4 @@
-title: Path Sum: Two Ways
+title: "Path Sum: Two Ways"
 description: >
     In the 5 by 5 matrix below, the minimal path sum from the top left to the bottom right, by only moving to the right and down, is indicated in bold red and is equal to 2427.
 
@@ -8,4 +8,4 @@ description: >
 answer_b64: !!binary |
     NDI3MzM3
 strategy: >
-    Can simply go backwards, similar to previous triangle question.
+    Use Dijkstra.
