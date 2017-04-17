@@ -1,6 +1,8 @@
 #!/bin/bash -e
 
-python -m cProfile -o test.prof solve.py "$@"
-snakeviz test.prof &&
+SCRIPT="$(python -c "from project_euler.framework import solve; print(solve.__file__)")"
+
+python -m cProfile -o temp.prof $SCRIPT "$@"
+pyprof2calltree -k -i temp.prof
 sleep 0.5
-rm test.prof
+rm temp.prof
