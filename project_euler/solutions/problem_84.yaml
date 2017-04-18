@@ -46,3 +46,6 @@ strategy: >
     For landing on each square, make a transition matrix, the compute proper
     transitions for a dice by 'composing' these, then take powers. Ignore
     putting cards on bottom: make random.
+
+    This is not guaranteed to be correct: we do not model the cards
+    correctly and we only do end of turn contributions.

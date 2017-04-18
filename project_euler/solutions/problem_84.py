@@ -1,142 +1,120 @@
 from enum import Enum
 
-from typing import Any, List
-
 import numpy as np
+
 
 class Square(Enum):
     Otherwise = 0
     GoToJail = 1
     CommunityChest = 2
     Chance = 3
-    Railroad = 4
+    RailRoad = 4
     Utility = 5
-
-BOARD = [Square.Otherwise for i in range(40)]
-
-for i in [2, 17, 33]:
-    BOARD[i] = Square.CommunityChest
-
-for i in [7, 22, 36]:
-    BOARD[i] = Square.Chance
-
-for i in [5, 15, 25, 35]:
-    BOARD[i] = Square.Railroad
-
-for i in [12, 28]:
-    BOARD[i] = Square.Utility
-
-BOARD[10] = Square.GoToJail
+    Jail = 6
 
 
-def flatten(l: List[List[Any]]) -> List[Any]:
-    return [item for sublist in l for item in sublist]
-
-
-def solve(sides: int=4,
-          board: List[Square]=BOARD,
-          jail_position: int=10,
-          doubles: int=3) -> str:
+def solve(sides: int=4) -> str:
+    board = [Square.Otherwise for i in range(40)]
     length = len(board)
-    states = [[(position, square, i) for position, square in enumerate(board)]
-              for i in range(doubles)]
+    jail_index = 10
+    community_chests = [2, 17, 33]
+    chance = [7, 22, 36]
+    go_to_jail = [30]
 
-    actions = []
+    for i in community_chests:
+        board[i] = Square.CommunityChest
 
-    for position, square in enumerate(board):
-        transition = [0 for i in range(length)]
-        if square in (Square.Otherwise, Square.Railroad, Square.Utility):
-            pass
-        elif square == Square.GoToJail:
-            transition[jail_position] = 1
-        else:
-            size = 16
-            positions = []
-            if square == Square.CommunityChest:
-                positions += [0, jail_position]
-            if square == Square.Chance:
-                positions += [0,   # home
-                              11,  # c1
-                              25,  # e3
-                              39,  # h2
-                              5,   # r1
-                              jail_position,
-                              (position - 3) % length]
+    for i in chance:
+        board[i] = Square.Chance
 
-                next_r = (position + (board[position:] + board[:position])
-                          .index(Square.Railroad)) % length
-                next_u = (position + (board[position:] + board[:position])
-                          .index(Square.Utility)) % length
+    for i in [5, 15, 25, 35]:
+        board[i] = Square.RailRoad
 
-                positions += [next_r,
-                              next_r,  # because in cards twice
-                              next_u]
+    for i in [12, 28]:
+        board[i] = Square.Utility
 
-            for i in positions:
-                transition[i] += 1 / size
+    for i in go_to_jail:
+        board[i] = Square.GoToJail
 
-        transition[position] += 1 - sum(transition)
-        actions.append(transition)
+    board[jail_index] = Square.Jail
 
-    dice_factor = sides ** -2
-    dice_probs = {}
+    transitions_matrix = np.zeros((length, length))
 
-    for total in range(2 * sides):
-        for double in [False, True]:
-            dice_probs[(total + 2, double)] = 0
+    pdf = {total: 0 for total in range(6 * sides)}
+    pdf[Square.Jail] = 0
 
     for i in range(sides):
         for j in range(sides):
-            dice_probs[(i + j + 2, i == j)] += 1
+            total1 = i + j + 2
+            if i != j:
+                pdf[total1] += sides ** -2
+            else:
+                for k in range(sides):
+                    for m in range(sides):
+                        total2 = total1 + k + m + 2
+                        if k != m:
+                            pdf[total2] += sides ** -4
+                        else:
+                            for n in range(sides):
+                                for p in range(sides):
+                                    total3 = total2 + n + p + 2
+                                    if n != p:
+                                        pdf[total3] += sides ** -6
+                                    else:
+                                        pdf[Square.Jail] += sides ** -6
 
-    for key in dice_probs:
-            dice_probs[key] *= dice_factor
+    for position in range(length):
+        for step, probability in pdf.items():
+            if step == Square.Jail:
+                step = jail_index
 
-    assert sum(dice_probs.values()) == 1
+            transitions_matrix[position][(position + step) % length] += probability
 
-    transitions = [[None for _ in range(length)] for _ in range(doubles)]
-    for doubles_already in range(doubles):
-        transitions.append([])
+    old = np.copy(transitions_matrix)
 
-        for position in range(length):
-            transition = [[0 for _ in range(length)] for _ in range(doubles)]
+    for position in range(length):
+        transition = transitions_matrix[position]
 
-            for total, double in dice_probs:
-                local_transition = [0 for i in range(length)]
+        for i in chance:
+            probability = transition[i]
 
-                doubles_new = doubles_already + 1 if double else 0
+            transition[0] += probability * 1 / 16
+            transition[jail_index] += probability * 1 / 16
 
-                if doubles_new == doubles:
-                    doubles_new %= doubles
-                    local_transition[jail_position] = 1
-                else:
-                    local_transition = actions[(position + total) % length]
+            transition[i] -= probability * 2 / 16
 
-                for i in range(length):
-                    transition[doubles_new][i] += local_transition[i]
+        for i in community_chests:
+            next_r = (position + (board[position:] + board[:position])
+                      .index(Square.RailRoad)) % length
+            next_u = (position + (board[position:] + board[:position])
+                      .index(Square.Utility)) % length
+            positions = [0,       # home
+                         11,      # c1
+                         24,      # e3
+                         39,      # h2
+                         5,       # r1
+                         jail_index,
+                         (position - 3) % length,
+                         next_r,
+                         next_r,  # because in cards twice
+                         next_u]
 
-            for i in range(doubles):
-                for j in range(length):
-                    transition[i][j] *= dice_factor
+            probability = transition[i]
 
-            assert sum(sum(b) for b in transition) == 1
+            for j in positions:
+                transition[j] += probability * 1 / 16
 
-            transitions[doubles_already][position] = transition
+            transition[i] -= probability * 10 / 16
 
-    transitions_flat = [[flatten(transitions[i][j]) for j in range(length)] for i in range(doubles)]
-    transitions_matrix = flatten(transitions_flat)
+        for i in go_to_jail:
+            transition[jail_index] += transition[i]
+            transition[i] = 0
 
-    transitions_np = np.matrix(transitions_matrix)
+    transitions_matrix = np.matrix(transitions_matrix, copy=False)
+    transitions_matrix **= 50
 
-    transitions_np **= 50
+    stable = np.ndarray((length,), buffer=transitions_matrix[0])
 
-    steady = transitions_np[0,:].tolist()[0]
-    steady_no_doubles = [[0, i] for i in range(length)]
-    #print(transitions_np[0,:] - transitions_np[-1,:])
+    result = sorted((-value, pos) for pos, value in enumerate(stable))
 
-    for position, value in enumerate(steady):
-        steady_no_doubles[position % length][0] -= value
-
-    print(sorted(steady_no_doubles)[0:20])
-
-    return ''.join(str(position) for _, position in sorted(steady_no_doubles)[0:3])
+    return ''.join(str(pos).zfill(2) for _, pos in sorted(result)[0:3])
