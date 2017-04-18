@@ -63,17 +63,15 @@ def solve(sides: int=4) -> str:
                                     else:
                                         pdf[Square.Jail] += sides ** -6
 
-    for position in range(length):
+    for pos in range(length):
         for step, probability in pdf.items():
             if step == Square.Jail:
                 step = jail_index
 
-            transitions_matrix[position][(position + step) % length] += probability
+            transitions_matrix[pos][(pos + step) % length] += probability
 
-    old = np.copy(transitions_matrix)
-
-    for position in range(length):
-        transition = transitions_matrix[position]
+    for pos in range(length):
+        transition = transitions_matrix[pos]
 
         for i in chance:
             probability = transition[i]
@@ -84,9 +82,9 @@ def solve(sides: int=4) -> str:
             transition[i] -= probability * 2 / 16
 
         for i in community_chests:
-            next_r = (position + (board[position:] + board[:position])
+            next_r = (pos + (board[pos:] + board[:pos])
                       .index(Square.RailRoad)) % length
-            next_u = (position + (board[position:] + board[:position])
+            next_u = (pos + (board[pos:] + board[:pos])
                       .index(Square.Utility)) % length
             positions = [0,       # home
                          11,      # c1
@@ -94,7 +92,7 @@ def solve(sides: int=4) -> str:
                          39,      # h2
                          5,       # r1
                          jail_index,
-                         (position - 3) % length,
+                         (pos - 3) % length,
                          next_r,
                          next_r,  # because in cards twice
                          next_u]
