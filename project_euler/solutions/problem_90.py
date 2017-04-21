@@ -1,6 +1,4 @@
-from typing import Tuple
-
-from itertools import combinations, product
+from itertools import combinations
 
 
 REQUIRED = [(0, 1), (0, 4), (0, 6), (1, 6), (2, 5), (3, 6), (4, 6), (4, 6),
@@ -9,7 +7,6 @@ REQUIRED = [(0, 1), (0, 4), (0, 6), (1, 6), (2, 5), (3, 6), (4, 6), (4, 6),
 
 def solve() -> int:
     accumulate = 0
-    counter = 0
 
     digits = list(range(9)) + [6]
 
