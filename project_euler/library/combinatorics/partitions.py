@@ -1,7 +1,9 @@
 from typing import List, Iterable
 
+Partition = List[int]
 
-def partitions(n, cache: List=[1], length: List[int]=[1]) -> int:
+
+def partitions(n: int, cache: List=[1], length: List[int]=[1]) -> int:
     if n < length[0]:
         return cache[n]
 
@@ -43,7 +45,10 @@ def partitions(n, cache: List=[1], length: List[int]=[1]) -> int:
 
 class Partitions:
     def __init__(self, numbers: Iterable[int]=None) -> None:
-        self.numbers = list(numbers)
+        if numbers is None:
+            self.numbers = None
+        else:
+            self.numbers = list(numbers)
         self._cache = {}
 
     def __getitem__(self, item: int) -> int:
@@ -70,6 +75,40 @@ class Partitions:
             for i, value in enumerate(numbers[:max_index]):
                 for k in range(1, n // value + 1):
                     accumulate += self(n - value * k, i)
+
+        self._cache[arguments] = accumulate
+
+        return self._cache[arguments]
+
+
+class GeneratePartitions(Partitions):
+    def __call__(self, n: int, max_index: int=None) -> List[Partitions]:
+        numbers = self.numbers
+
+        if numbers is None:
+            numbers = [i for i in range(1, n + 1)]
+
+        if max_index is None:
+            max_index = len(numbers)
+
+        arguments = (n, max_index)
+
+        if arguments in self._cache:
+            return self._cache[arguments]
+
+        accumulate = []
+
+        if n == 0:
+            accumulate.append([])
+        elif max_index == 0:
+            pass
+        else:
+            for i, value in enumerate(numbers[:max_index]):
+                for k in range(1, n // value + 1):
+                    minor = self(n - value * k, i)
+
+                    for partition in minor:
+                        accumulate.append([value] * k + partition)
 
         self._cache[arguments] = accumulate
 
