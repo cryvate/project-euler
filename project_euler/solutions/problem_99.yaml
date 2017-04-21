@@ -10,4 +10,4 @@ description: >
 answer_b64: !!binary |
     NzA5
 strategy: >
-    TBC
+    Use logarithm.
