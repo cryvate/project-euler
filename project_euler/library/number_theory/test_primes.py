@@ -4,7 +4,7 @@ from ..test_sequences import reference_values
 from .primes import is_prime, largest_prime_factor,\
     prime_sieve, smallest_prime_factor, generate_prime_factors_multiplicity
 
-primes_list = reference_values["primes"]
+primes_list = reference_values['primes']
 
 
 @pytest.mark.parametrize("n", range(-1, max(primes_list) + 1))
