@@ -1,8 +1,6 @@
 from collections import Counter
 from itertools import combinations, permutations
 
-from typing import List
-
 from ..framework.load_file import load_file
 from ..library.sequences import square_sequence
 from ..library.sqrt import is_square_fast as is_square
@@ -62,7 +60,6 @@ def find_square_representations(word1: str, word2: str) -> int:
     return max(squares)
 
 
-
 def solve() -> int:
     words = load_file(98, 'words.txt').strip('"').split('","')
 
@@ -78,7 +75,8 @@ def solve() -> int:
         anagrams[canonical].append(word)
         counter[canonical] += 1
 
-    anagrams = {key: value for key, value in anagrams.items() if counter[key] >= 2}
+    anagrams = {key: value for key, value in anagrams.items()
+                if counter[key] >= 2}
 
     max_length = max(len(key) for key in anagrams)
 
