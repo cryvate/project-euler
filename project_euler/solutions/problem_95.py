@@ -8,6 +8,9 @@ def solve(bound: int=1_000_000):
     chains_with_length[0] = (1, [0])
 
     for i in range(1, bound + 1):
+        if chains_with_length[i] is not None:
+            continue
+
         hit = [i]
 
         n = divisor_sum[i] - i

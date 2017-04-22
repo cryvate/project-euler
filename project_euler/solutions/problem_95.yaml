@@ -14,4 +14,10 @@ description: >
 answer_b64: !!binary |
     MTQzMTY=
 strategy: >
-    TBC
+    Use a 'sieve'-like method to compute the divisor sum for all numbers up
+    to a million, then simply use pre-computed values and add as you get
+    knowledge.
+
+    Leverage that from one we get the advantage that we know about many.
+
+    Also store length, so can find required answer easily.
