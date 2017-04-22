@@ -1,13 +1,9 @@
 from collections import deque
 
-from ..library.sqrt import is_square_fast as is_square, fast_fsqrt as fsqrt
-from ..library.number_theory.pythagorean_triples import primitive_pythagorean_triples, PythagoreanTriplet
+from ..library.number_theory.pythagorean_triples import PythagoreanTriplet
 
 
 def solve(bound: int=1_000_000_000) -> int:
-    def valid(triplet: PythagoreanTriplet) -> bool:
-        return min(triplet) * 2 + 2 * triplet[2] <= bound
-
     accumulate = 0
 
     def process(triplet: PythagoreanTriplet) -> bool:
