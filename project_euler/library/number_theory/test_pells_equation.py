@@ -2,7 +2,7 @@ import pytest
 
 from typing import Tuple
 
-from .pells_equation import solve_pells_equation
+from .pells_equation import solve_pells_equation, solve_negative_pells_equation
 from ..sqrt import is_square
 
 
@@ -62,3 +62,18 @@ def test_further_solutions_pells_equation(n: int,
 
     for (x, y), i in zip(solutions, range(number)):
         assert x ** 2 - n * y ** 2 == 1
+
+
+def test_failure_negative_solution_pells_equation(n: int=3) -> None:
+    with pytest.raises(ValueError):
+        for convergent in solve_negative_pells_equation(n):
+            pass
+
+
+def test_further_negative_solutions_pells_equation(n: int=2,
+                                                   number: int=DEPTH) -> None:
+    solutions = solve_negative_pells_equation(n)
+
+    for (x, y), i in zip(solutions, range(number)):
+        print(i)
+        assert x ** 2 - n * y ** 2 == -1
