@@ -1,0 +1,14 @@
+title: Almost Equilateral Triangles
+description: >
+    It is easily proved that no equilateral triangle exists with integral length sides and integral area. However, the almost equilateral triangle 5-5-6 has an area of 12 square units.
+
+    We shall define an almost equilateral triangle to be a triangle for which two sides are equal and the third differs by no more than one unit.
+
+    Find the sum of the perimeters of all almost equilateral triangles with integral side lengths and area and whose perimeters do not exceed one billion (1,000,000,000).
+answer_b64: !!binary |
+    NTE4NDA4MzQ2
+strategy: >
+    Can use generation of pythagorean triplet, but it is quite slow.
+
+    According to the thread, we don't need to use one of the matrix transforms,
+    this way we save a lot of unnecessart traversal in the tree.
