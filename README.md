@@ -41,13 +41,23 @@ If all is well, it should come back with something like:
     
 # Library features
 
-- Floor and ceil of square root of an arbitrary size integer.
+- Going to and from arbitrary base and digits
+- Floor and ceil of square root of an arbitrary size integer
+- Find the decimal (or any base) representation of a fraction
 - Sequences as generators:
   + Fibonacci
+  + Collatz
   + Primes
-  + ...
+  + Triangle (and related)
 - Number Theory
-  + ...
+  + Basics like (extended) gcd(/Bezout), lcd
+  + Prime sieve
+  + Finding (smallest/largest/all) prime factors/multiplicity
+  + Euler's Totient function
+  + Divisor count/sum
+  + Continued fractions
+  + Pythagorean triplets with filter support
+  
     
 # Documentation
 
@@ -61,16 +71,18 @@ reached, however at this time, these are not collated in any way.
 - Solve remaining problems (unlikely).
 
 ## Library
-- Continued fractions and associated topics like Pell's equation, decimal 
-expansion (of rationals).
-- Pythagorean triplet generation (using trees and matrices).
-- Sequences like the triangular number and other common sequences.
-- Documentation (and decide what to use, see backend).
+- Pell's equation.
+- Documentation.
 
 ## Testing
-- Include MyPy (current does not support f-strings).
+- Include MyPy (originally not included due to no f-string support ["How 
+I Learned the Pains of Being an Early Adopter"]).
 
 ## Documentation
-- Provide automatic documentation on:
+- Provide automatic documentation using gh-pages/Sphinx on:
   + Library
+<<<<<<< HEAD
   + Problems/solutions.
+=======
+  + Problems/solutions
+>>>>>>> master
