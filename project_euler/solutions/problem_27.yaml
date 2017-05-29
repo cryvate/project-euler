@@ -19,5 +19,5 @@ description: >
 answer_b64: !!binary |
     LTU5MjMx
 strategy: >
-    Simply try it. Could have a look up table for small numbers whether they
-     are prime or no to speed things along.
+    Simply try it, and use a few short-cuts: use pre-computed primes, and
+    also use that b has to be prime.

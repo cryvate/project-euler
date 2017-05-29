@@ -1,0 +1,21 @@
+title: Right Triangles with Integer Coordinates
+description: >
+    The points P (x1, y1) and Q (x2, y2) are plotted at integer co-ordinates and are joined to the origin, O(0,0), to form ΔOPQ.
+
+    There are exactly fourteen triangles containing a right angle that can be formed when each co-ordinate lies between 0 and 2 inclusive; that is,
+    0 ≤ x1, y1, x2, y2 ≤ 2.
+
+    Given that 0 ≤ x1, y1, x2, y2 ≤ 50, how many right triangles can be formed?
+answer_b64: !!binary |
+    MTQyMzQ=
+strategy: >
+    Consider the point that is where the right angle.
+
+    The O case leads to 50 * 50.
+
+    Otherwise, without loss of generality assume it is at P and anti-clockwise
+    for angle OPQ. We then need to multiply by 2. Then consider the normal,
+    and divide it by the greatest common divisor of the coordinates of P,
+    then consider the amount of 'steps' we can do of those.
+
+

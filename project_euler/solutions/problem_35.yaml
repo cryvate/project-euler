@@ -8,4 +8,4 @@ description: >
 answer_b64: !!binary |
     NTU=
 strategy: >
-    Simply use brute-force.
+    Any such number can only have odd digits.

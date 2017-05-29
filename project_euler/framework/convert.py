@@ -16,11 +16,10 @@ import base64
 
 
 def convert(answer: str) -> bytes:
-
     return base64.b64encode(answer.encode())
 
 
 if __name__ == '__main__':
     arguments = docopt(__doc__)
 
-    print(convert(arguments["<answer>"]))
+    print(str(convert(arguments["<answer>"]))[2:-1])

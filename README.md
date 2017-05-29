@@ -11,7 +11,7 @@ Often better solutions are available in certain mathematical packages,
 however in the spirit of Project Euler these are sometimes not used.
 
 The testing also includes benchmarking, that is, the dreaded "one-minute 
-rule." Currently there are 60 solved problems available here, from the 196 
+rule." Currently there are 100 solved problems available here, from the 196 
 that I 
 have solved and 597 (and counting) available.
 
@@ -81,4 +81,8 @@ I Learned the Pains of Being an Early Adopter"]).
 ## Documentation
 - Provide automatic documentation using gh-pages/Sphinx on:
   + Library
+<<<<<<< HEAD
+  + Problems/solutions.
+=======
   + Problems/solutions
+>>>>>>> master

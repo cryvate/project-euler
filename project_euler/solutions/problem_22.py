@@ -1,13 +1,8 @@
-from os.path import join, split
+from ..framework.load_file import load_file
 
 
-def solve(file_path: str= 'problem_22_names.txt', relative: bool=True) -> int:
-    if relative:
-        full_path = join(split(__file__)[0], file_path)
-    else:
-        full_path = file_path
-    with open(full_path, 'r') as names_file:
-        names_raw = names_file.read()
+def solve(name: str='names.txt', relative: bool=True) -> int:
+    names_raw = load_file(22, name, relative)
 
     names = names_raw.strip('"').split('","')
     names = sorted(names)

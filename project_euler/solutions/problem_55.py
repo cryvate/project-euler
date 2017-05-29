@@ -4,7 +4,7 @@ from ..library.base import list_to_number, number_to_list
 
 def is_lychrel(n: int) -> bool:
     for i in range(51):
-        n += list_to_number(number_to_list(n))
+        n += list_to_number(reversed(number_to_list(n)))
 
         if is_palindrome(n):
             return False

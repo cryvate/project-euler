@@ -1,9 +1,10 @@
 from collections import Counter
 from enum import IntEnum, Enum
 from functools import total_ordering
-from os.path import join, split
 
 from typing import Iterable, NamedTuple, List, Tuple
+
+from ..framework.load_file import load_file
 
 
 class Value(IntEnum):
@@ -153,14 +154,8 @@ class PokerResult:
         return PokerResult(Kind.high_card, high_cards)
 
 
-def solve(file_path: str='problem_54_poker.txt',
-          relative: bool=True) -> int:
-    if relative:
-        full_path = join(split(__file__)[0], file_path)
-    else:
-        full_path = file_path
-    with open(full_path, 'r') as hands_file:
-        hands_raw = hands_file.read()
+def solve(name: str='poker.txt', relative: bool=True) -> int:
+    hands_raw = load_file(54, name, relative)
 
     lines = hands_raw.split('\n')
 

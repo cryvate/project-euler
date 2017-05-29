@@ -1,17 +1,34 @@
-from itertools import count
+from bisect import bisect_right
+from itertools import chain, count
 
-from typing import Generator, Sequence, Tuple
+from typing import Generator, List, Sequence, Tuple
 
-from ..sqrt import fsqrt
+from ..sqrt import fast_fsqrt as fsqrt
 
 
-def is_prime(n: int, sieve: Sequence[int]=None) -> bool:
+def is_prime(n: int, sieve: List[int]=None) -> bool:
     if n <= 1:
         return False
 
-    for factor in range(2, fsqrt(n) + 1) if sieve is None else sieve:
-        if n % factor == 0:
+    if sieve is None:
+        for factor in range(2, fsqrt(n) + 1):
+            if n % factor == 0:
+                return False
+    elif n <= sieve[-1]:
+        index = bisect_right(sieve, n)
+        if not index or sieve[index - 1] != n:
             return False
+    elif n <= sieve[-1] ** 2:
+        fsqrt_n = fsqrt(n)
+        for factor in sieve:
+            if factor > fsqrt_n:
+                break
+            if n % factor == 0:
+                return False
+    else:
+        for factor in chain(sieve, range(sieve[-1] + 1, fsqrt(n) + 1)):
+            if n % factor == 0:
+                return False
 
     return True
 
@@ -81,12 +98,12 @@ def prime_sieve(n: int) -> Sequence[int]:
     http://stackoverflow.com/questions/2068372/fastest-way-to-list-all
     -primes-below-n/3035188#3035188
     """
-    import numpy
+    import numpy as np
 
     if n <= 1:
         return [False] * n
 
-    sieve = numpy.ones(n // 3 + (n % 6 == 2), dtype=numpy.bool)
+    sieve = np.ones(n // 3 + (n % 6 == 2), dtype=np.bool)
 
     for i in range(1, fsqrt(n) // 3 + 1):
         if sieve[i]:
@@ -94,7 +111,7 @@ def prime_sieve(n: int) -> Sequence[int]:
             sieve[k * k // 3::2 * k] = False
             sieve[k * (k - 2 * (i & 1) + 4) // 3::2 * k] = False
 
-    return numpy.r_[2, 3, ((3 * numpy.nonzero(sieve)[0][1:] + 1) | 1)]
+    return np.r_[2, 3, ((3 * np.nonzero(sieve)[0][1:] + 1) | 1)].tolist()
 
 
 def primes_sequence() -> Generator[int, None, None]:

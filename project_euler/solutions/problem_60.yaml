@@ -6,4 +6,7 @@ description: >
 answer_b64: !!binary |
     MjYwMzM=
 strategy: >
-    Do pairs first, then triplets, then quadruplets.
+    Do pairs first, then triplets, then quadruplets, then quintuplets.
+
+    To add a number, check just the pairings which are stored in a Boolean
+    matrix
