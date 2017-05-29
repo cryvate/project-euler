@@ -53,4 +53,4 @@ description: >
 answer_b64: !!binary |
     MjQ3MDI=
 strategy: >
-    Use simple deep-first search.
+    Use constraints to fill in those you can without guessing, then guess!

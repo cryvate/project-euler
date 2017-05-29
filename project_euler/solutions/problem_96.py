@@ -109,6 +109,11 @@ def constraint_solve_sudoku(input: Sudoku) -> Tuple[bool, Optional[Sudoku]]:
         updates = []
 
         for i in range(9):
+            for j in range(9):
+                if allowed[i][j] and len(allowed[i][j]) == 1:
+                    updates.append((i, j, list(allowed[i][j])[0]))
+
+        for i in range(9):
             counter = Counter()
 
             for j in range(9):

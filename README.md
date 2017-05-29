@@ -71,8 +71,8 @@ reached, however at this time, these are not collated in any way.
 - Solve remaining problems (unlikely).
 
 ## Library
-- Pell's equation.
-- Documentation.
+- Pell's equation
+- Documentation
 
 ## Testing
 - Include MyPy (originally not included due to no f-string support ["How 
@@ -81,8 +81,4 @@ I Learned the Pains of Being an Early Adopter"]).
 ## Documentation
 - Provide automatic documentation using gh-pages/Sphinx on:
   + Library
-<<<<<<< HEAD
-  + Problems/solutions.
-=======
   + Problems/solutions
->>>>>>> master
