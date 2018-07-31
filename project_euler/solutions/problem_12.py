@@ -12,3 +12,5 @@ def solve(over: int=500) -> int:
 
         if no_divisors > over:
             return (n * (n + 1)) // 2
+
+    raise RuntimeError('This code is unreachable.')

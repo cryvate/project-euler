@@ -1,11 +1,11 @@
 from itertools import count
 
-from typing import Generator, Iterable, List
+from typing import Callable, Generator, Iterable, List
 
 from .number_theory.primes import primes_sequence  # noqa: F401
 
 
-def fibonacci_sequence() -> Generator[int, None, None]:
+def fibonacci_sequence() -> Iterable[int]:
     a, b = 0, 1
 
     while True:
@@ -13,7 +13,7 @@ def fibonacci_sequence() -> Generator[int, None, None]:
         a, b = b, a + b
 
 
-def collatz_sequence(n: int=13) -> Generator[int, None, None]:
+def collatz_sequence(n: int=13) -> Iterable[int]:
     while n > 1:
         yield n
 
@@ -27,9 +27,9 @@ def collatz_sequence(n: int=13) -> Generator[int, None, None]:
 
 
 def create_polynomial_sequence(coefficients: List[int]) -> \
-        Generator[int, None, None]:
+        Callable[[], Iterable[int]]:
     # do not create copy of list: can change on the fly to provide flexibility
-    def polynomial_sequence(start: int=0) -> Generator[int, None, None]:
+    def polynomial_sequence(start: int=0) -> Iterable[int]:
         value = 0
 
         for n in count():
@@ -60,7 +60,7 @@ def find_intersection_interval(sequence: Iterable[int],
                                begin: int=None,
                                end: int=None,
                                breaking: bool=True) -> \
-        Generator[int, None, None]:
+        Iterable[int]:
     for value in sequence:
         if end is not None and value >= end:
             if breaking:
