@@ -19,7 +19,7 @@ def same_side(p, q, a, b):
         return False
 
 
-def solve(name: str='triangles.txt', relative: bool=True):
+def solve(name: str='triangles.txt', relative: bool=True) -> int:
     raw = load_file(102, name, relative)
 
     triangles = []
