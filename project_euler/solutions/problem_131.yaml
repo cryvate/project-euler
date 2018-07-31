@@ -12,4 +12,5 @@ answer_b64: !!binary |
 strategy: >
     If we assume gcd(n, p) = 1, we find that n is a cube itself, leading to
     k^3(k^3 + p) being a cube, which would suggest that p is a difference of
-    cubes, first tried successive only, that got the right answer...
+    cubes, and due to the factoring of x^3 - y^3 = (x - y)(x^2 + xy + y^2)
+    this means it must be successive cubes.
