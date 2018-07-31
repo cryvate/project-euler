@@ -2,7 +2,7 @@ from collections import Counter
 from itertools import count, combinations_with_replacement
 from math import factorial
 
-from typing import Generator, List
+from typing import Generator, Iterable, List
 
 
 def number_to_list(number: int, base: int=10) -> List[int]:
@@ -21,7 +21,7 @@ def number_to_list(number: int, base: int=10) -> List[int]:
     return list(reversed(digits))
 
 
-def list_to_number(representation: List[int], base: int = 10) -> int:
+def list_to_number(representation: Iterable[int], base: int = 10) -> int:
     accumulate = 0
 
     for digit in representation:

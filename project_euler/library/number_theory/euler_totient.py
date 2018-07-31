@@ -1,4 +1,4 @@
-from typing import Iterable
+from typing import List
 
 from .primes import generate_prime_factors, prime_sieve
 from ..sqrt import csqrt
@@ -14,7 +14,7 @@ def phi(n: int) -> int:
     return result
 
 
-def phi_range(n: int) -> Iterable[int]:
+def phi_range(n: int) -> List[int]:
     import numpy as np
 
     phis = np.zeros(n + 1, dtype=np.int64)

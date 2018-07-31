@@ -1,7 +1,7 @@
 from fractions import Fraction
 from queue import Queue
 
-from typing import Callable, Generator
+from typing import Callable, Generator, Tuple  # noqa: F401 (used in comment)
 
 from .euler_totient import phi_range
 
@@ -16,7 +16,7 @@ def stern_brocot_tree(left: Fraction=Fraction(0, 1),
                       classifier: Callable[[Fraction], bool]=None,
                       depth: int=None) -> \
         Generator[Fraction, None, None]:
-    queue = Queue()
+    queue = Queue()  # type: Queue[Tuple[Fraction, Fraction]]
 
     queue.put((left, right))
 

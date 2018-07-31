@@ -1,4 +1,4 @@
-from typing import Iterable
+from typing import List
 
 from .primes import generate_prime_factors_multiplicity
 
@@ -21,7 +21,7 @@ def divisor_sum(n: int) -> int:
     return sum_divisors
 
 
-def divisor_range(n: int) -> Iterable[int]:
+def divisor_range(n: int) -> List[int]:
     import numpy as np
 
     divisors = np.ones(n + 1, dtype=np.int64)

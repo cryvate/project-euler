@@ -1,4 +1,4 @@
-from itertools import permutations, takewhile
+from itertools import permutations
 
 from ..library.sequences import primes_sequence
 from ..library.base import list_to_number
@@ -6,9 +6,7 @@ from ..library.base import list_to_number
 
 def solve() -> int:
     accumulate = 0
-
-    primes = list(takewhile(lambda _, store=[True] * 7: store and store.pop(),
-                            primes_sequence()))
+    primes = [p for i, p in zip(range(7), primes_sequence())]
 
     remaining = set(range(10))
     for d4 in range(0, 10, 2):
@@ -19,7 +17,7 @@ def solve() -> int:
 
             remaining.remove(d5)
 
-            for permutation in permutations(remaining):
+            for permutation in permutations(remaining):  # type: ignore
                 number = permutation[:3] + (d4, ) + \
                          permutation[3:4] + (d5, ) + \
                          permutation[4:]
