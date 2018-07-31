@@ -1,6 +1,6 @@
 from itertools import count
 
-from typing import Callable, Generator, Iterable, List
+from typing import Callable, Iterable, List
 
 from .number_theory.primes import primes_sequence  # noqa: F401
 

@@ -1,4 +1,4 @@
-from itertools import permutations, takewhile
+from itertools import permutations
 
 from ..library.sequences import primes_sequence
 from ..library.base import list_to_number

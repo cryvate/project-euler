@@ -1,7 +1,7 @@
 from fractions import Fraction
 from queue import Queue
 
-from typing import Callable, Generator, Tuple
+from typing import Callable, Generator, Tuple  # noqa: F401 (used in comment)
 
 from .euler_totient import phi_range
 

@@ -18,16 +18,16 @@ def solve() -> int:
             for i, j in REQUIRED:  # works because i != j in all cases
                 for k in first_die:
                     if k == i:
-                        for l in second_die:
-                            if l == j:
+                        for m in second_die:
+                            if m == j:
                                 break
                         else:
                             continue
 
                         break
                     elif k == j:
-                        for l in second_die:
-                            if l == i:
+                        for m in second_die:
+                            if m == i:
                                 break
                         else:
                             continue
