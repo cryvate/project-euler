@@ -68,7 +68,7 @@ def solve_problem(problem_number: int,
 
     file_name = f'problem_{problem_number}.yaml'
 
-    file_path = join(join(split(__file__)[0], '..', 'solutions', file_name))
+    file_path = join(join(split(__file__)[0], '..', 'problems', file_name))
 
     with open(file_path) as f:
         parameters = yaml.load(f)
