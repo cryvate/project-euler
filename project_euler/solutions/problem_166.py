@@ -1,7 +1,7 @@
 import itertools
 
 
-def solve():
+def solve() -> int:
     total = 0
 
     for g00, g01 in itertools.product(range(0, 5), range(10)):
