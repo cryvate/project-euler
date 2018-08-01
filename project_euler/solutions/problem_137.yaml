@@ -1,0 +1,36 @@
+title: Fibonacci golden nuggets
+description: >
+    Consider the infinite polynomial series AF(x) = xF1 + x2F2 + x3F3 + ..., where Fk is the kth term in the Fibonacci sequence: 1, 1, 2, 3, 5, 8, ... ; that is, F_k = F_{k−1} + F_{k−2}, F1 = 1 and F2 = 1.
+
+    For this problem we shall be interested in values of x for which AF(x) is a positive integer.
+
+    Surprisingly AF(1/2)	 = 	(1/2).1 + (1/2)2.1 + (1/2)3.2 + (1/2)4.3 + (1/2)5.5 + ...
+       = 	1/2 + 1/4 + 2/8 + 3/16 + 5/32 + ...
+       = 	2
+    The corresponding values of x for the first five natural numbers are shown below.
+
+    x	AF(x)
+    √2−1	1
+    1/2	2
+    (√13−2)/3	3
+    (√89−5)/8	4
+    (√34−3)/5	5
+    We shall call AF(x) a golden nugget if x is rational, because they become increasingly rarer; for example, the 10th golden nugget is 74049690.
+
+    Find the 15th golden nugget.
+answer_b64: !!binary |
+    MTEyMDE0OTY1ODc2MA==
+strategy: >
+    We have
+      AF(x) = x / (1 - x - x^2)
+    From this we have a necessary and sufficient condition for x = p / q to
+    have AF(x) be an integer to be
+      p^2 + pq - q^2 | pq
+    From using Stern Brocot tree spot that the relevant p and q are successive
+    Fibonacci numbers, moreover it is all of these if allowing integers
+    (swapping sign, because crossing over zero of 1 - x - x^2), and so we find
+    that there is a closed form. Moreover, more staring gives that the nuggets
+    are the 7th, 11th, ... Fibonacci numbers, however this is not faster for
+    generating large Fibonacci numbers. (in fact, this problem gives a result
+    that can be used to compute large Fibonacci numbers faster if you care not
+    about intermediates).
