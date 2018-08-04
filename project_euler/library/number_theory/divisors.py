@@ -3,6 +3,22 @@ from typing import List
 from .primes import generate_prime_factors_multiplicity
 
 
+def divisors(n: int) -> List[int]:
+    for factor, multiplicity in generate_prime_factors_multiplicity(n):
+        result = []
+        multiplier = 1
+        remainder = n // (factor ** multiplicity)
+        remainder_divisors = divisors(remainder)
+
+        for exponent in range(multiplicity + 1):
+            result += [multiplier * divisor for divisor in remainder_divisors]
+            multiplier *= factor
+
+        return result
+
+    return [1]
+
+
 def divisor_count(n: int) -> int:
     no_divisors = 1
 
